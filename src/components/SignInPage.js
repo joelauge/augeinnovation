@@ -1,8 +1,35 @@
-import React from 'react';
-import { SignIn } from '@clerk/clerk-react';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useAuth } from '../hooks/useAuth';
 
 const SignInPage = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState('');
+  const { signIn } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+    setError('');
+
+    try {
+      const result = await signIn(email, password);
+      if (result.success) {
+        navigate('/dashboard');
+      } else {
+        setError('Sign in failed. Please try again.');
+      }
+    } catch (err) {
+      setError('An error occurred. Please try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="min-h-screen bg-carbon flex flex-col items-center justify-center p-4">
       {/* Large Logo */}
@@ -23,38 +50,80 @@ const SignInPage = () => {
         />
       </motion.div>
 
-      {/* Clerk SignIn Component */}
+      {/* Custom Sign In Form */}
       <motion.div
         initial={{ opacity: 0, y: 50 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
         className="w-full max-w-md mx-auto"
       >
-        <SignIn 
-          appearance={{
-            elements: {
-              rootBox: "w-full flex justify-center",
-              card: "bg-gray-100 shadow-xl rounded-lg w-full p-6",
-              headerTitle: "text-gray-800 font-cyber text-xl",
-              headerSubtitle: "text-gray-600",
-              formButtonPrimary: "bg-cyber-blue hover:bg-cyber-purple text-white font-bold py-2 px-4 rounded w-full transition-colors",
-              formFieldInput: "w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyber-blue focus:border-transparent",
-              formFieldLabel: "text-gray-700 font-medium block mb-1",
-              footerActionLink: "text-cyber-blue hover:text-cyber-purple transition-colors",
-              formFieldInputShowPasswordButton: "text-gray-500 hover:text-gray-700",
-              dividerLine: "bg-gray-300",
-              dividerText: "text-gray-600 bg-gray-100",
-              socialButtonsBlockButton: "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors",
-              socialButtonsBlockButtonText: "text-gray-700",
-              formFieldErrorText: "text-red-600 text-sm",
-              formFieldHintText: "text-gray-500 text-sm",
-              identityPreviewText: "text-gray-700",
-              identityPreviewEditButton: "text-cyber-blue hover:text-cyber-purple"
-            }
-          }}
-          afterSignInUrl="/dashboard"
-          signUpUrl="/sign-up"
-        />
+        <div className="bg-gray-100 shadow-xl rounded-lg w-full p-6">
+          <div className="text-center mb-6">
+            <h2 className="text-gray-800 font-cyber text-xl mb-2">Sign In</h2>
+            <p className="text-gray-600">Welcome back to Auge Innovation</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
+            <div>
+              <label htmlFor="email" className="text-gray-700 font-medium block mb-1">
+                Email Address
+              </label>
+              <input
+                type="email"
+                id="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyber-blue focus:border-transparent"
+                placeholder="Enter your email"
+                required
+              />
+            </div>
+
+            <div>
+              <label htmlFor="password" className="text-gray-700 font-medium block mb-1">
+                Password
+              </label>
+              <input
+                type="password"
+                id="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyber-blue focus:border-transparent"
+                placeholder="Enter your password"
+                required
+              />
+            </div>
+
+            {error && (
+              <div className="text-red-600 text-sm">
+                {error}
+              </div>
+            )}
+
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="bg-cyber-blue hover:bg-cyber-purple text-white font-bold py-2 px-4 rounded w-full transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {isLoading ? 'Signing In...' : 'Sign In'}
+            </button>
+          </form>
+
+          <div className="mt-6 text-center">
+            <p className="text-gray-600">
+              Don't have an account?{' '}
+              <a href="/sign-up" className="text-cyber-blue hover:text-cyber-purple transition-colors">
+                Sign up
+              </a>
+            </p>
+          </div>
+
+          <div className="mt-4 text-center">
+            <p className="text-xs text-gray-500">
+              Demo Mode: Any email/password combination will work
+            </p>
+          </div>
+        </div>
       </motion.div>
     </div>
   );
