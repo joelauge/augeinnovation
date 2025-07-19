@@ -2,7 +2,7 @@
   "name": "ainnovation-client-portal",
   "version": "1.0.0",
   "description": "AI Innovation Firearms Training Robots Client Portal",
-  "homepage": "https://augeinnovation.com",
+  "homepage": "https://joelauge.github.io/augeinnovation",
   "private": true,
   "dependencies": {
     "@stripe/react-stripe-js": "^2.4.0",
