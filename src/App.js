@@ -12,9 +12,10 @@ import './App.css';
 function App() {
   const { isLoaded, isSignedIn } = useAuth();
 
-  if (!isLoaded) {
-    return <LoadingSpinner />;
-  }
+  // Temporarily bypass loading check for debugging
+  // if (!isLoaded) {
+  //   return <LoadingSpinner />;
+  // }
 
   return (
     <div className="App min-h-screen bg-carbon">

@@ -55,7 +55,15 @@ Add this CNAME record:
 
 ## Step 3: Update GitHub Pages Configuration
 
-### 3.1 Update package.json Homepage
+### 3.1 Configure Custom Domain in GitHub
+1. Go to your repository settings: https://github.com/joelauge/augeinnovation/settings/pages
+2. Add custom domain: `augeinnovation.com`
+3. Check "Enforce HTTPS"
+4. Save the settings
+
+### 3.2 Update package.json Homepage (After DNS is Configured)
+**IMPORTANT**: Only update the homepage AFTER the DNS is properly configured and working.
+
 Update the homepage field in your package.json:
 
 ```json
@@ -64,21 +72,41 @@ Update the homepage field in your package.json:
 }
 ```
 
-### 3.2 Redeploy the Site
+### 3.3 Redeploy the Site
 Run the deployment command to update the site:
 
 ```bash
 npm run deploy
 ```
 
-## Step 4: Verify Setup
+## Step 4: Verify DNS Configuration
 
-### 4.1 Check DNS Propagation
+### 4.1 Test DNS Propagation
+Before updating the homepage, verify that DNS is working:
+
+```bash
+# Check if A records are pointing to GitHub Pages
+dig augeinnovation.com
+
+# Check if www subdomain is working
+dig www.augeinnovation.com
+```
+
+### 4.2 Test Domain Access
+Try accessing:
+- https://augeinnovation.com
+- https://www.augeinnovation.com
+
+**Only proceed to Step 5 if both URLs are working correctly.**
+
+## Step 5: Verify Setup
+
+### 5.1 Check DNS Propagation
 DNS changes can take 24-48 hours to propagate globally. You can check propagation using:
 - https://www.whatsmydns.net/
 - https://dnschecker.org/
 
-### 4.2 Test the Domain
+### 5.2 Test the Domain
 Once DNS propagates, test:
 - https://augeinnovation.com
 - https://www.augeinnovation.com
