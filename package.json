@@ -5,6 +5,7 @@
   "homepage": "https://augeinnovation.com",
   "private": true,
   "dependencies": {
+    "@clerk/clerk-react": "^5.35.3",
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/typography": "^0.5.10",
     "autoprefixer": "^10.4.16",

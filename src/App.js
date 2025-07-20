@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { useAuth } from './hooks/useAuth';
+import { useAuth } from './hooks/useClerkAuth';
 import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
 import ProductPage from './components/ProductPage';
