@@ -174,13 +174,13 @@ const LandingPage = () => {
           ) : (
             <>
               <button 
-                onClick={() => navigate('/sign-in')}
+                onClick={() => window.open('https://accounts.augeinnovation.com/sign-in?redirect_url=' + encodeURIComponent(window.location.origin + '/#/dashboard'), '_self')}
                 className="cyber-button"
               >
                 SIGN IN
               </button>
               <button 
-                onClick={() => navigate('/sign-up')}
+                onClick={() => window.open('https://accounts.augeinnovation.com/sign-up?redirect_url=' + encodeURIComponent(window.location.origin + '/#/dashboard'), '_self')}
                 className="cyber-button"
               >
                 SIGN UP
@@ -253,7 +253,7 @@ const LandingPage = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => isAuthenticated ? navigate('/dashboard') : navigate('/sign-up')}
+              onClick={() => isAuthenticated ? navigate('/dashboard') : window.open('https://accounts.augeinnovation.com/sign-up?redirect_url=' + encodeURIComponent(window.location.origin + '/#/dashboard'), '_self')}
               className="cyber-button text-base px-6 py-3"
             >
               {isAuthenticated ? 'GO TO DASHBOARD' : 'GET STARTED'} <ArrowRight className="inline ml-2 w-5 h-5" />
