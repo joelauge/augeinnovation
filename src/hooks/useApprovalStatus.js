@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useUser } from '@clerk/clerk-react';
+import { sendUserSignupNotification } from '../services/emailService';
 
 const useApprovalStatus = () => {
   const { user } = useUser();
   const [isApproved, setIsApproved] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [approvalStatus, setApprovalStatus] = useState('pending');
+  const [hasNotified, setHasNotified] = useState(false);
 
   useEffect(() => {
     const checkApprovalStatus = async () => {
@@ -15,6 +17,18 @@ const useApprovalStatus = () => {
       }
 
       try {
+        // Send signup notification to admins if not already sent
+        if (!hasNotified) {
+          console.log('Sending signup notification for new user:', user.emailAddresses?.[0]?.emailAddress);
+          const notificationResult = await sendUserSignupNotification(user);
+          if (notificationResult.success) {
+            console.log('Signup notification sent successfully');
+          } else {
+            console.warn('Failed to send signup notification:', notificationResult.error);
+          }
+          setHasNotified(true);
+        }
+
         // In production, this would make an API call to check approval status
         // For now, we'll use mock logic based on email patterns
         
@@ -69,7 +83,7 @@ const useApprovalStatus = () => {
     };
 
     checkApprovalStatus();
-  }, [user]);
+  }, [user, hasNotified]);
 
   const approveUser = async (userId) => {
     // In production, this would make an API call to approve the user

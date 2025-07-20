@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useUser, useAuth } from '@clerk/clerk-react';
+import { sendUserApprovalNotification, sendUserRejectionNotification } from '../services/emailService';
 import { 
   User, 
   LogOut, 
@@ -110,6 +111,20 @@ const AdminPanel = () => {
       
       setApprovedUsers(prev => [approvedUser, ...prev]);
       setPendingUsers(prev => prev.filter(u => u.id !== userId));
+      
+      // Send approval notification email
+      const userData = {
+        firstName: userToApprove.firstName,
+        lastName: userToApprove.lastName,
+        emailAddresses: [{ emailAddress: userToApprove.email }]
+      };
+      
+      const emailResult = await sendUserApprovalNotification(userData);
+      if (emailResult.success) {
+        console.log('Approval notification sent successfully');
+      } else {
+        console.warn('Failed to send approval notification:', emailResult.error);
+      }
     }
   };
 
@@ -117,8 +132,27 @@ const AdminPanel = () => {
     // In production, this would make an API call to reject the user
     console.log('Rejecting user:', userId);
     
+    // Get user data before removing from list
+    const userToReject = pendingUsers.find(u => u.id === userId);
+    
     // Remove user from pending list
     setPendingUsers(prev => prev.filter(u => u.id !== userId));
+    
+    // Send rejection notification email
+    if (userToReject) {
+      const userData = {
+        firstName: userToReject.firstName,
+        lastName: userToReject.lastName,
+        emailAddresses: [{ emailAddress: userToReject.email }]
+      };
+      
+      const emailResult = await sendUserRejectionNotification(userData);
+      if (emailResult.success) {
+        console.log('Rejection notification sent successfully');
+      } else {
+        console.warn('Failed to send rejection notification:', emailResult.error);
+      }
+    }
   };
 
   const filteredPendingUsers = pendingUsers.filter(user =>

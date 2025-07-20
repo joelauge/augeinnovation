@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import LandingPage from './components/LandingPage';
 import Dashboard from './components/Dashboard';
@@ -8,10 +8,16 @@ import SignInPage from './components/SignInPage';
 import ContactPage from './components/ContactPage';
 import AdminPanel from './components/AdminPanel';
 import { InvoiceProvider } from './contexts/InvoiceContext';
+import { initializeEmailJS } from './services/emailService';
 import './App.css';
 
 function App() {
   console.log('App rendering full version...');
+
+  // Initialize EmailJS
+  useEffect(() => {
+    initializeEmailJS();
+  }, []);
 
   return (
     <InvoiceProvider>
