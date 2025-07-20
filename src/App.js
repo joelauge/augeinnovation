@@ -12,54 +12,54 @@ import AdminDashboard from './components/AdminDashboard';
 import './App.css';
 
 function App() {
-  const { isSignedIn, isApproved } = useAuth();
+  const { isSignedIn, isApproved, isLoaded } = useAuth();
 
-  // Temporarily bypass loading check for debugging
-  // if (!isLoaded) {
-  //   return <LoadingSpinner />;
-  // }
+  console.log('App render:', { isSignedIn, isApproved, isLoaded });
+
+  // Show loading state while Clerk is initializing
+  if (!isLoaded) {
+    return (
+      <div className="App min-h-screen bg-carbon flex items-center justify-center">
+        <div className="text-white text-xl">Loading...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="App min-h-screen bg-carbon flex flex-col">
-              <Routes>
-          <Route path="/" element={<LandingPage />} />
-          <Route 
-            path="/sign-in" 
-            element={
-              <SignInPage />
-            } 
-          />
-          <Route 
-            path="/sign-up" 
-            element={
-              <SignUpPage />
-            } 
-          />
-          <Route 
-            path="/contact" 
-            element={
-              <ContactPage />
-            } 
-          />
-          <Route 
-            path="/dashboard" 
-            element={
-              isSignedIn ? (isApproved ? <Dashboard /> : <PendingApprovalPage />) : <LandingPage />
-            } 
-          />
-          <Route 
-            path="/product/:id" 
-            element={
-              isSignedIn ? (isApproved ? <ProductPage /> : <PendingApprovalPage />) : <LandingPage />
-            } 
-          />
-          <Route 
-            path="/admin" 
-            element={
-              isSignedIn ? <AdminDashboard /> : <LandingPage />
-            } 
-          />
-        </Routes>
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route 
+          path="/sign-in" 
+          element={<SignInPage />} 
+        />
+        <Route 
+          path="/sign-up" 
+          element={<SignUpPage />} 
+        />
+        <Route 
+          path="/contact" 
+          element={<ContactPage />} 
+        />
+        <Route 
+          path="/dashboard" 
+          element={
+            isSignedIn ? (isApproved ? <Dashboard /> : <PendingApprovalPage />) : <LandingPage />
+          } 
+        />
+        <Route 
+          path="/product/:id" 
+          element={
+            isSignedIn ? (isApproved ? <ProductPage /> : <PendingApprovalPage />) : <LandingPage />
+          } 
+        />
+        <Route 
+          path="/admin" 
+          element={
+            isSignedIn ? <AdminDashboard /> : <LandingPage />
+          } 
+        />
+      </Routes>
     </div>
   );
 }

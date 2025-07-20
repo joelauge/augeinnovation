@@ -11,27 +11,30 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 const publishableKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 
 console.log('Clerk Key Type:', publishableKey?.startsWith('pk_live_') ? 'LIVE' : 'TEST');
+console.log('Clerk Key (first 20 chars):', publishableKey?.substring(0, 20));
 
 if (!publishableKey) {
-  throw new Error("Missing Publishable Key");
-}
-
-// Add error boundary for Clerk
-const handleClerkError = (error) => {
-  console.error('Clerk Error:', error);
-};
-
-root.render(
-  <React.StrictMode>
-    <ErrorBoundary>
-      <ClerkProvider 
-        publishableKey={publishableKey}
-        onError={handleClerkError}
-      >
+  console.error("Missing Publishable Key");
+  // Don't throw error, render app without Clerk
+  root.render(
+    <React.StrictMode>
+      <ErrorBoundary>
         <BrowserRouter basename="/augeinnovation">
           <App />
         </BrowserRouter>
-      </ClerkProvider>
-    </ErrorBoundary>
-  </React.StrictMode>
-); 
+      </ErrorBoundary>
+    </React.StrictMode>
+  );
+} else {
+  root.render(
+    <React.StrictMode>
+      <ErrorBoundary>
+        <ClerkProvider publishableKey={publishableKey}>
+          <BrowserRouter basename="/augeinnovation">
+            <App />
+          </BrowserRouter>
+        </ClerkProvider>
+      </ErrorBoundary>
+    </React.StrictMode>
+  );
+} 
