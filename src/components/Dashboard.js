@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useClerkAuth';
+// import { useAuth } from '../hooks/useClerkAuth';
 import { 
   Target, 
   Shield, 
@@ -14,7 +14,10 @@ import {
 } from 'lucide-react';
 
 const Dashboard = () => {
-  const { user, signOut, userRole } = useAuth();
+  // const { user, signOut, userRole } = useAuth();
+  const user = { firstName: 'Demo', lastName: 'User', email: 'demo@augeinnovation.com' };
+  const signOut = () => console.log('Sign out clicked');
+  const userRole = 'admin';
   const navigate = useNavigate();
 
 

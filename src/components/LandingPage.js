@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../hooks/useClerkAuth';
+// import { useAuth } from '../hooks/useClerkAuth';
 import { 
   Shield, 
   Target, 
@@ -51,7 +51,8 @@ const AnimatedText = ({ text, className, animationProps = {} }) => {
 
 const LandingPage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const { isSignedIn } = useAuth();
+  // const { isSignedIn } = useAuth();
+  const isSignedIn = false; // Temporary fallback
   const navigate = useNavigate();
 
   const features = [
