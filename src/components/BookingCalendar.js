@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Calendar, ChevronLeft, ChevronRight, Check, X } from 'lucide-react';
+import { ChevronLeft, ChevronRight, Check, X } from 'lucide-react';
 
 const BookingCalendar = ({ 
   selectedDates, 
@@ -225,17 +225,6 @@ const BookingCalendar = ({
           </div>
         </div>
       )}
-
-      {/* Google Calendar Integration Note */}
-      <div className="mt-4 p-3 bg-cyber-dark/30 rounded-lg border border-cyber-blue/20">
-        <div className="flex items-center space-x-2 text-sm text-titanium">
-          <Calendar className="w-4 h-4 text-cyber-blue" />
-          <span>Connected to Google Calendar: {googleCalendarEmail}</span>
-        </div>
-        <p className="text-xs text-gray-500 mt-1">
-          Available dates are synced with our booking calendar
-        </p>
-      </div>
     </div>
   );
 };
