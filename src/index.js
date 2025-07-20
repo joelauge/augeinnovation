@@ -11,16 +11,30 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 // Get Clerk publishable key from environment variables
 const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
 
-console.log('Starting app with Clerk authentication...');
+console.log('Starting app...', clerkPubKey ? 'with Clerk authentication' : 'without Clerk (using custom forms)');
 
-root.render(
-  <React.StrictMode>
-    <ErrorBoundary>
-      <ClerkProvider publishableKey={clerkPubKey}>
+// Only use ClerkProvider if we have a valid publishable key
+if (clerkPubKey && clerkPubKey !== 'pk_test_your_clerk_key_here') {
+  root.render(
+    <React.StrictMode>
+      <ErrorBoundary>
+        <ClerkProvider publishableKey={clerkPubKey}>
+          <HashRouter>
+            <App />
+          </HashRouter>
+        </ClerkProvider>
+      </ErrorBoundary>
+    </React.StrictMode>
+  );
+} else {
+  // Fallback to app without Clerk (using custom forms)
+  root.render(
+    <React.StrictMode>
+      <ErrorBoundary>
         <HashRouter>
           <App />
         </HashRouter>
-      </ClerkProvider>
-    </ErrorBoundary>
-  </React.StrictMode>
-); 
+      </ErrorBoundary>
+    </React.StrictMode>
+  );
+} 
