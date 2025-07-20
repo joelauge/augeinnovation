@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-// import { useAuth } from '../hooks/useClerkAuth';
+import { useUser, useAuth } from '@clerk/clerk-react';
 import { 
   Target, 
   Shield, 
@@ -14,11 +14,38 @@ import {
 } from 'lucide-react';
 
 const Dashboard = () => {
-  // const { user, signOut, userRole } = useAuth();
-  const user = { firstName: 'Demo', lastName: 'User', email: 'demo@augeinnovation.com' };
-  const signOut = () => console.log('Sign out clicked');
-  const userRole = 'admin';
+  const { user } = useUser();
+  const { signOut } = useAuth();
   const navigate = useNavigate();
+
+  // Check if Clerk is properly configured
+  const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
+  const isClerkConfigured = clerkPubKey && clerkPubKey !== 'pk_test_your_clerk_key_here';
+
+  // Fallback user data if Clerk is not configured
+  const fallbackUser = { firstName: 'Demo', lastName: 'User', email: 'demo@augeinnovation.com' };
+  const currentUser = isClerkConfigured && user ? {
+    firstName: user.firstName || 'User',
+    lastName: user.lastName || '',
+    email: user.emailAddresses?.[0]?.emailAddress || 'user@example.com'
+  } : fallbackUser;
+
+  // Determine user role (admin if email contains 'admin')
+  const userRole = currentUser.email?.includes('admin') ? 'admin' : 'user';
+
+  const handleSignOut = async () => {
+    try {
+      if (isClerkConfigured && signOut) {
+        await signOut();
+      }
+      // Always navigate to home page after sign out
+      navigate('/');
+    } catch (error) {
+      console.error('Error signing out:', error);
+      // Still navigate to home page even if sign out fails
+      navigate('/');
+    }
+  };
 
 
   const products = [
@@ -138,7 +165,7 @@ const Dashboard = () => {
             >
               <div className="flex items-center space-x-2 text-titanium">
                 <User className="w-5 h-5" />
-                <span className="font-tech">{user?.firstName} {user?.lastName}</span>
+                <span className="font-tech">{currentUser?.firstName} {currentUser?.lastName}</span>
               </div>
               {userRole === 'admin' && (
                 <button 
@@ -149,7 +176,7 @@ const Dashboard = () => {
                 </button>
               )}
               <button 
-                onClick={signOut}
+                onClick={handleSignOut}
                 className="cyber-button text-sm px-3 py-2 whitespace-nowrap"
               >
                 <LogOut className="w-4 h-4 mr-1" />
@@ -169,7 +196,7 @@ const Dashboard = () => {
           className="cyber-card mb-8"
         >
           <h2 className="text-3xl font-cyber font-bold neon-text mb-2">
-            WELCOME BACK, {user?.firstName?.toUpperCase()}
+            WELCOME BACK, {currentUser?.firstName?.toUpperCase()}
           </h2>
           <p className="text-titanium text-lg">
             Explore our advanced firearms training solutions and robotic systems
