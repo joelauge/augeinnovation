@@ -138,7 +138,6 @@ const SignInPage = () => {
               afterSignInUrl="/dashboard"
               signUpUrl="/sign-up"
               routing="hash"
-              path="/sign-in"
               redirectUrl={undefined}
             />
           ) : (
