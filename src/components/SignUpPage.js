@@ -19,6 +19,13 @@ const SignUpPage = () => {
   // Check if Clerk is properly configured
   const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
   const isClerkConfigured = clerkPubKey && clerkPubKey !== 'pk_live_Y2xlcmsuYXVnZWlubm92YXRpb24uY29tJA';
+  
+  console.log('SignUpPage Clerk Debug:', {
+    clerkPubKey: clerkPubKey ? 'configured' : 'not configured',
+    isClerkConfigured,
+    keyLength: clerkPubKey ? clerkPubKey.length : 0,
+    keyStart: clerkPubKey ? clerkPubKey.substring(0, 10) + '...' : 'none'
+  });
 
   const handleChange = (e) => {
     setFormData({

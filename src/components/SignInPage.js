@@ -14,13 +14,12 @@ const SignInPage = () => {
   // Check if Clerk is properly configured
   const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
   const isClerkConfigured = clerkPubKey && clerkPubKey !== 'pk_live_Y2xlcmsuYXVnZWlubm92YXRpb24uY29tJA';
-
-  console.log('SignInPage rendered:', {
+  
+  console.log('SignInPage Clerk Debug:', {
     clerkPubKey: clerkPubKey ? 'configured' : 'not configured',
     isClerkConfigured,
-    currentUrl: window.location.href,
-    pathname: window.location.pathname,
-    hash: window.location.hash
+    keyLength: clerkPubKey ? clerkPubKey.length : 0,
+    keyStart: clerkPubKey ? clerkPubKey.substring(0, 10) + '...' : 'none'
   });
 
   const handleSubmit = async (e) => {
