@@ -12,7 +12,7 @@ console.log('Starting app without Clerk for debugging...');
 root.render(
   <React.StrictMode>
     <ErrorBoundary>
-      <BrowserRouter basename="/augeinnovation">
+      <BrowserRouter>
         <App />
       </BrowserRouter>
     </ErrorBoundary>
