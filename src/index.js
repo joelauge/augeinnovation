@@ -45,6 +45,8 @@ if (clerkPubKey && clerkPubKey !== 'pk_test_your_clerk_key_here') {
               }
             }
           }}
+          routerPush={(to) => window.location.hash = to}
+          routerReplace={(to) => window.location.hash = to}
         >
           <HashRouter>
             <App />

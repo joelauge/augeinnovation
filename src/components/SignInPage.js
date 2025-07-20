@@ -137,6 +137,7 @@ const SignInPage = () => {
               }}
               redirectUrl="/dashboard"
               signUpUrl="/sign-up"
+              routing="hash"
             />
           ) : (
             // Custom Sign In Form
