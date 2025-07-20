@@ -6,7 +6,7 @@ import ProductPage from './components/ProductPage';
 import SignUpPage from './components/SignUpPage';
 import SignInPage from './components/SignInPage';
 import ContactPage from './components/ContactPage';
-import AdminDashboard from './components/AdminDashboard';
+import AdminPanel from './components/AdminPanel';
 import { InvoiceProvider } from './contexts/InvoiceContext';
 import './App.css';
 
@@ -40,7 +40,7 @@ function App() {
           />
           <Route 
             path="/admin" 
-            element={<AdminDashboard />} 
+            element={<AdminPanel />} 
           />
         </Routes>
       </div>

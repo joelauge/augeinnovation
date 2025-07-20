@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useUser, useAuth } from '@clerk/clerk-react';
+import useApprovalStatus from '../hooks/useApprovalStatus';
+import ApprovalPending from './ApprovalPending';
 import { 
   Target, 
   Shield, 
@@ -17,6 +19,7 @@ const Dashboard = () => {
   const { user } = useUser();
   const { signOut } = useAuth();
   const navigate = useNavigate();
+  const { isApproved, isLoading } = useApprovalStatus();
 
   // Check if Clerk is properly configured
   const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
@@ -131,6 +134,16 @@ const Dashboard = () => {
   const filteredProducts = selectedCategory === 'all' 
     ? products 
     : products.filter(product => product.category === selectedCategory);
+
+  if (isLoading) {
+    return <div className="min-h-screen bg-carbon flex items-center justify-center">
+      <p className="text-white text-2xl">Loading approval status...</p>
+    </div>;
+  }
+
+  if (!isApproved) {
+    return <ApprovalPending />;
+  }
 
   return (
     <div className="min-h-screen bg-carbon">
