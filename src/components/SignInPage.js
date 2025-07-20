@@ -136,8 +136,7 @@ const SignInPage = () => {
               }}
               afterSignInUrl="/dashboard"
               signUpUrl="/sign-up"
-              redirectUrl={undefined}
-              mode="modal"
+              redirectUrl={window.location.href}
             />
           ) : (
             // Custom Sign In Form
