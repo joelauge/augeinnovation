@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useParams, useNavigate } from 'react-router-dom';
 
-
 import InvoiceRequestModal from './InvoiceRequestModal';
+import BookingCalendar from './BookingCalendar';
 import { 
   ArrowLeft, 
   Target, 
@@ -24,6 +24,7 @@ const ProductPage = () => {
 
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
+  const [selectedDates, setSelectedDates] = useState([]);
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
 
   const products = {
@@ -32,7 +33,7 @@ const ProductPage = () => {
       title: 'Law Enforcement - Live Fire AI Targets',
       price: 1000,
       period: 'per day',
-      bgVideo: process.env.PUBLIC_URL + "/images/training.webm",
+      bgVideo: process.env.PUBLIC_URL + "/images/robotinside.webm",
       description: 'Advanced AI-powered targets designed specifically for law enforcement training scenarios. These cutting-edge systems provide realistic threat simulation while maintaining the highest safety standards.',
       longDescription: `Our Law Enforcement AI Targets represent the pinnacle of training technology, designed specifically for police departments and law enforcement agencies. These systems combine advanced robotics with sophisticated AI algorithms to create the most realistic training scenarios possible.
 
@@ -215,7 +216,18 @@ The heavy weapons resistance is achieved through a combination of advanced mater
       // For demo purposes, show a success message
       // In production, this would integrate with Stripe
       setTimeout(() => {
-        alert('Checkout process initiated! In production, this would redirect to Stripe checkout.');
+        if (product.period === 'per day') {
+          const dateList = selectedDates.map(date => 
+            date.toLocaleDateString('en-US', { 
+              month: 'short', 
+              day: 'numeric',
+              year: 'numeric'
+            })
+          ).join(', ');
+          alert(`Checkout process initiated for ${selectedDates.length} days: ${dateList}! In production, this would redirect to Stripe checkout.`);
+        } else {
+          alert('Checkout process initiated! In production, this would redirect to Stripe checkout.');
+        }
         setLoading(false);
       }, 1000);
     } catch (error) {
@@ -397,67 +409,112 @@ The heavy weapons resistance is achieved through a combination of advanced mater
                 PURCHASE
               </h2>
               
-              <div className="mb-6">
-                <label className="block text-titanium font-tech mb-2">Quantity</label>
-                <select
-                  value={quantity}
-                  onChange={(e) => setQuantity(parseInt(e.target.value))}
-                  className="cyber-input w-full"
-                >
-                  {[1, 2, 3, 4, 5].map(num => (
-                    <option key={num} value={num}>{num}</option>
-                  ))}
-                </select>
-              </div>
+              {/* Calendar for per-day products */}
+              {product.period === 'per day' && (
+                <div className="mb-6">
+                  <BookingCalendar
+                    selectedDates={selectedDates}
+                    onDateSelect={setSelectedDates}
+                    maxDays={10}
+                    googleCalendarEmail="bookings@augeinnovation.com"
+                  />
+                </div>
+              )}
+              
+              {/* Quantity selector for non-per-day products */}
+              {product.period !== 'per day' && (
+                <div className="mb-6">
+                  <label className="block text-titanium font-tech mb-2">Quantity</label>
+                  <select
+                    value={quantity}
+                    onChange={(e) => setQuantity(parseInt(e.target.value))}
+                    className="cyber-input w-full"
+                  >
+                    {[1, 2, 3, 4, 5].map(num => (
+                      <option key={num} value={num}>{num}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
               
               <div className="mb-6">
                 <div className="flex justify-between items-center py-2 border-b border-cyber-blue/20">
                   <span className="text-titanium">Unit Price</span>
                   <span className="text-cyber-blue font-cyber">${product.price.toLocaleString()}</span>
                 </div>
-                <div className="flex justify-between items-center py-2 border-b border-cyber-blue/20">
-                  <span className="text-titanium">Quantity</span>
-                  <span className="text-cyber-blue font-cyber">{quantity}</span>
-                </div>
+                
+                {product.period === 'per day' ? (
+                  <>
+                    <div className="flex justify-between items-center py-2 border-b border-cyber-blue/20">
+                      <span className="text-titanium">Days Selected</span>
+                      <span className="text-cyber-blue font-cyber">{selectedDates.length}</span>
+                    </div>
+                    {selectedDates.length > 0 && (
+                      <div className="py-2 border-b border-cyber-blue/20">
+                        <span className="text-titanium text-sm">Selected Dates:</span>
+                        <div className="mt-1 space-y-1">
+                          {selectedDates.map((date, index) => (
+                            <div key={index} className="text-xs text-cyber-blue font-tech">
+                              {date.toLocaleDateString('en-US', { 
+                                month: 'short', 
+                                day: 'numeric',
+                                year: 'numeric'
+                              })}
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </>
+                ) : (
+                  <div className="flex justify-between items-center py-2 border-b border-cyber-blue/20">
+                    <span className="text-titanium">Quantity</span>
+                    <span className="text-cyber-blue font-cyber">{quantity}</span>
+                  </div>
+                )}
+                
                 <div className="flex justify-between items-center py-2">
                   <span className="text-white font-cyber font-bold text-lg">Total</span>
                   <span className="text-cyber-blue font-cyber font-bold text-xl">
-                    ${(product.price * quantity).toLocaleString()}
+                    ${product.period === 'per day' 
+                      ? (product.price * selectedDates.length).toLocaleString()
+                      : (product.price * quantity).toLocaleString()
+                    }
                   </span>
                 </div>
               </div>
               
-                             <div className="space-y-3">
-                 <button
-                   onClick={handleCheckout}
-                   disabled={loading}
-                   className="cyber-button w-full text-lg py-4 disabled:opacity-50 disabled:cursor-not-allowed"
-                 >
-                   {loading ? (
-                     <div className="flex items-center justify-center">
-                       <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                       PROCESSING...
-                     </div>
-                   ) : (
-                     <>
-                       <DollarSign className="inline mr-2 w-5 h-5" />
-                       PROCEED TO CHECKOUT
-                     </>
-                   )}
-                 </button>
-                 
-                 <div className="text-center">
-                   <span className="text-sm text-titanium">or</span>
-                 </div>
-                 
-                 <button
-                   onClick={() => setShowInvoiceModal(true)}
-                   className="w-full px-6 py-4 border border-cyber-blue/30 text-cyber-blue hover:border-cyber-blue/50 hover:bg-cyber-blue/10 transition-all duration-300 rounded-lg font-cyber font-bold"
-                 >
-                   <FileText className="inline mr-2 w-5 h-5" />
-                   REQUEST INVOICE
-                 </button>
-               </div>
+              <div className="space-y-3">
+                <button
+                  onClick={handleCheckout}
+                  disabled={loading || (product.period === 'per day' && selectedDates.length === 0)}
+                  className="cyber-button w-full text-lg py-4 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {loading ? (
+                    <div className="flex items-center justify-center">
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                      PROCESSING...
+                    </div>
+                  ) : (
+                    <>
+                      <DollarSign className="inline mr-2 w-5 h-5" />
+                      PROCEED TO CHECKOUT
+                    </>
+                  )}
+                </button>
+                
+                <div className="text-center">
+                  <span className="text-sm text-titanium">or</span>
+                </div>
+                
+                <button
+                  onClick={() => setShowInvoiceModal(true)}
+                  className="w-full px-6 py-4 border border-cyber-blue/30 text-cyber-blue hover:border-cyber-blue/50 hover:bg-cyber-blue/10 transition-all duration-300 rounded-lg font-cyber font-bold"
+                >
+                  <FileText className="inline mr-2 w-5 h-5" />
+                  REQUEST INVOICE
+                </button>
+              </div>
               
               <div className="mt-6 text-center">
                 <p className="text-sm text-titanium mb-2">Need assistance?</p>
@@ -466,7 +523,7 @@ The heavy weapons resistance is achieved through a combination of advanced mater
                     <Phone className="inline w-4 h-4 mr-1" />
                     Call
                   </a>
-                  <a href="mailto:sales@aiinnovation.com" className="text-cyber-blue hover:text-cyber-purple transition-colors">
+                  <a href="mailto:sales@augeinnovation.com" className="text-cyber-blue hover:text-cyber-purple transition-colors">
                     <Mail className="inline w-4 h-4 mr-1" />
                     Email
                   </a>
