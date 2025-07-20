@@ -5,6 +5,11 @@ import { motion } from 'framer-motion';
 const Footer = () => {
   const navigate = useNavigate();
 
+  const handleContactClick = () => {
+    console.log('Contact button clicked, navigating to /contact');
+    navigate('/contact');
+  };
+
   return (
     <footer className="bg-gray-800 border-t border-cyber-blue/30">
       <div className="max-w-7xl mx-auto px-6 py-8">
@@ -37,8 +42,9 @@ const Footer = () => {
             transition={{ delay: 0.1 }}
           >
             <button 
-              onClick={() => navigate('/contact')}
-              className="text-cyber-blue hover:text-cyber-purple transition-colors font-cyber font-bold text-lg"
+              onClick={handleContactClick}
+              className="text-cyber-blue hover:text-cyber-purple transition-colors font-cyber font-bold text-lg cursor-pointer px-4 py-2 rounded hover:bg-cyber-blue/10 active:scale-95"
+              style={{ userSelect: 'none' }}
             >
               CONTACT US
             </button>
