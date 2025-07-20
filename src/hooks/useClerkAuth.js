@@ -8,9 +8,13 @@ export const useAuth = () => {
   const [userRole, setUserRole] = useState('pending');
 
   useEffect(() => {
+    console.log('Clerk Auth State:', { isSignedIn, isLoaded, user: user?.id });
+    
     if (isSignedIn && user) {
       // Check if user is admin (email contains 'admin')
       const isAdmin = user.emailAddresses?.[0]?.emailAddress?.includes('admin') || false;
+      
+      console.log('User email:', user.emailAddresses?.[0]?.emailAddress, 'isAdmin:', isAdmin);
       
       if (isAdmin) {
         setUserRole('admin');
