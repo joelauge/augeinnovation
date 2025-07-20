@@ -4,6 +4,8 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import InvoiceRequestModal from './InvoiceRequestModal';
 import BookingCalendar from './BookingCalendar';
+import InvoiceCart from './InvoiceCart';
+import { useInvoice } from '../contexts/InvoiceContext';
 import { 
   ArrowLeft, 
   Target, 
@@ -15,12 +17,13 @@ import {
   Phone,
   Mail,
   DollarSign,
-  FileText
+  Plus
 } from 'lucide-react';
 
 const ProductPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  const { addToInvoice } = useInvoice();
 
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
@@ -65,8 +68,8 @@ Each system includes comprehensive analytics and reporting features, allowing tr
       color: 'from-cyber-blue to-cyber-purple',
       images: ['target1.jpg', 'target2.jpg', 'target3.jpg'],
       reviews: [
-        { rating: 5, comment: 'Revolutionary training system that significantly improved our department\'s readiness.', author: 'Sgt. Johnson, LAPD' },
-        { rating: 5, comment: 'The AI capabilities are incredible. Our officers are more confident and prepared.', author: 'Chief Williams, NYPD' }
+        { rating: 5, comment: 'Revolutionary training system that significantly improved our department\'s readiness.', author: 'Const. Johnson, Toronto Police' },
+        { rating: 5, comment: 'The AI capabilities are incredible. Our officers are more confident and prepared.', author: 'Sgt Dufonce, Sureté du Quebec' }
       ]
     },
     'military-targets': {
@@ -234,6 +237,29 @@ The heavy weapons resistance is achieved through a combination of advanced mater
       console.error('Error:', error);
       alert('Error initiating checkout. Please try again.');
       setLoading(false);
+    }
+  };
+
+  const handleAddToInvoice = () => {
+    if (product.period === 'per day' && selectedDates.length === 0) {
+      alert('Please select at least one date before adding to invoice.');
+      return;
+    }
+
+    addToInvoice(product, quantity, selectedDates);
+    
+    // Show success message
+    const message = product.period === 'per day' 
+      ? `Added ${selectedDates.length} days of ${product.title} to invoice`
+      : `Added ${quantity} ${product.title} to invoice`;
+    
+    alert(message);
+    
+    // Reset form
+    if (product.period === 'per day') {
+      setSelectedDates([]);
+    } else {
+      setQuantity(1);
     }
   };
 
@@ -409,6 +435,9 @@ The heavy weapons resistance is achieved through a combination of advanced mater
                 PURCHASE
               </h2>
               
+              {/* Invoice Cart */}
+              <InvoiceCart onRequestInvoice={() => setShowInvoiceModal(true)} />
+              
               {/* Calendar for per-day products */}
               {product.period === 'per day' && (
                 <div className="mb-6">
@@ -508,11 +537,12 @@ The heavy weapons resistance is achieved through a combination of advanced mater
                 </div>
                 
                 <button
-                  onClick={() => setShowInvoiceModal(true)}
-                  className="w-full px-6 py-4 border border-cyber-blue/30 text-cyber-blue hover:border-cyber-blue/50 hover:bg-cyber-blue/10 transition-all duration-300 rounded-lg font-cyber font-bold"
+                  onClick={handleAddToInvoice}
+                  disabled={product.period === 'per day' && selectedDates.length === 0}
+                  className="w-full px-6 py-4 border border-cyber-blue/30 text-cyber-blue hover:border-cyber-blue/50 hover:bg-cyber-blue/10 transition-all duration-300 rounded-lg font-cyber font-bold disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <FileText className="inline mr-2 w-5 h-5" />
-                  REQUEST INVOICE
+                  <Plus className="inline mr-2 w-5 h-5" />
+                  ADD TO INVOICE
                 </button>
               </div>
               
