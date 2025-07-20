@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../hooks/useAuth';
+import Footer from './Footer';
 
 const SignInPage = () => {
   const [email, setEmail] = useState('');
@@ -31,7 +32,8 @@ const SignInPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-carbon flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-carbon flex flex-col">
+      <div className="flex-1 flex flex-col items-center justify-center p-4">
       {/* Large Logo */}
       <motion.div
         initial={{ opacity: 0, y: -50 }}
@@ -73,7 +75,7 @@ const SignInPage = () => {
                 id="email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyber-blue focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyber-blue focus:border-transparent text-gray-900 placeholder-gray-500"
                 placeholder="Enter your email"
                 required
               />
@@ -88,7 +90,7 @@ const SignInPage = () => {
                 id="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyber-blue focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyber-blue focus:border-transparent text-gray-900 placeholder-gray-500"
                 placeholder="Enter your password"
                 required
               />
@@ -125,6 +127,8 @@ const SignInPage = () => {
           </div>
         </div>
       </motion.div>
+      </div>
+      <Footer />
     </div>
   );
 };

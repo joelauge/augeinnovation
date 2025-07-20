@@ -32,6 +32,7 @@ const ProductPage = () => {
       title: 'Law Enforcement - Live Fire AI Targets',
       price: 1000,
       period: 'per day',
+      bgVideo: process.env.PUBLIC_URL + "/images/training.webm",
       description: 'Advanced AI-powered targets designed specifically for law enforcement training scenarios. These cutting-edge systems provide realistic threat simulation while maintaining the highest safety standards.',
       longDescription: `Our Law Enforcement AI Targets represent the pinnacle of training technology, designed specifically for police departments and law enforcement agencies. These systems combine advanced robotics with sophisticated AI algorithms to create the most realistic training scenarios possible.
 
@@ -72,6 +73,7 @@ Each system includes comprehensive analytics and reporting features, allowing tr
       title: 'Military - Live Fire AI Targets',
       price: 1000,
       period: 'per day',
+      bgVideo: process.env.PUBLIC_URL + "/images/aerial.webm",
       description: 'Military-grade AI targets for advanced combat training and tactical scenarios. Designed for the most demanding training environments.',
       longDescription: `Our Military AI Targets are engineered for the most challenging combat training scenarios. These systems are designed to withstand extreme conditions while providing realistic threat simulation for military personnel.
 
@@ -112,6 +114,7 @@ Built to military specifications, these targets can operate in extreme weather c
       title: 'Armored Modular Indoor/Outdoor Robots',
       price: 50000,
       period: 'one-time',
+      bgVideo: process.env.PUBLIC_URL + "/images/robot1.webm",
       description: 'Heavy-duty modular robots for both military and law enforcement applications. Versatile platforms designed for multiple operational environments.',
       longDescription: `Our Armored Modular Robots represent a new generation of versatile robotic platforms designed for both military and law enforcement applications. These systems feature a modular design that allows for rapid reconfiguration to meet specific mission requirements.
 
@@ -152,6 +155,7 @@ Built with military-grade armor and electronics, these robots can operate in ext
       title: 'Heavy Weapons Resistant Robot',
       price: 200000,
       period: 'one-time',
+      bgVideo: process.env.PUBLIC_URL + "/images/robotinside.webm",
       description: 'Ultra-resistant robotic platforms designed for extreme combat environments. The most advanced robotic systems available.',
       longDescription: `Our Heavy Weapons Resistant Robots represent the pinnacle of robotic combat technology. These ultra-resistant platforms are designed for the most extreme combat environments, featuring advanced armor systems that can withstand heavy weapons fire.
 
@@ -264,32 +268,55 @@ The heavy weapons resistance is achieved through a combination of advanced mater
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="cyber-card mb-8"
+              className="cyber-card mb-8 relative overflow-hidden"
             >
-              <div className="flex items-start justify-between mb-6">
-                <div className="w-20 h-20 bg-cyber-dark border border-cyber-blue/30 rounded-lg flex items-center justify-center text-cyber-blue">
-                  {product.icon}
+              {/* Video Background */}
+              {product.bgVideo && (
+                <div className="absolute inset-0 z-0">
+                  <video
+                    className="absolute inset-0 w-full h-full object-cover"
+                    autoPlay
+                    muted
+                    loop
+                    playsInline
+                  >
+                    <source 
+                      src={product.bgVideo} 
+                      type="video/webm" 
+                    />
+                  </video>
+                  {/* Dark Overlay */}
+                  <div className="absolute inset-0 bg-black/70"></div>
                 </div>
-                <div className="text-right">
-                  <div className="text-4xl font-cyber font-bold text-white">
-                    ${product.price.toLocaleString()}
+              )}
+              
+              {/* Content */}
+              <div className="relative z-10">
+                <div className="flex items-start justify-between mb-6">
+                  <div className="w-20 h-20 bg-cyber-dark border border-cyber-blue/30 rounded-lg flex items-center justify-center text-cyber-blue">
+                    {product.icon}
                   </div>
-                  <div className="text-lg text-titanium">{product.period}</div>
+                  <div className="text-right">
+                    <div className="text-4xl font-cyber font-bold text-white">
+                      ${product.price.toLocaleString()}
+                    </div>
+                    <div className="text-lg text-titanium">{product.period}</div>
+                  </div>
                 </div>
-              </div>
-              
-              <h1 className="text-3xl font-cyber font-bold text-white mb-4">
-                {product.title}
-              </h1>
-              
-              <p className="text-titanium text-lg mb-6">
-                {product.description}
-              </p>
-              
-              <div className="prose prose-invert max-w-none">
-                <p className="text-titanium leading-relaxed">
-                  {product.longDescription}
+                
+                <h1 className="text-3xl font-cyber font-bold text-white mb-4">
+                  {product.title}
+                </h1>
+                
+                <p className="text-titanium text-lg mb-6">
+                  {product.description}
                 </p>
+                
+                <div className="prose prose-invert max-w-none">
+                  <p className="text-titanium leading-relaxed">
+                    {product.longDescription}
+                  </p>
+                </div>
               </div>
             </motion.div>
 

@@ -105,7 +105,7 @@ const InvoiceRequestModal = ({ isOpen, onClose, product }) => {
             <div className="flex justify-between items-center mb-6">
               <div className="flex items-center space-x-3">
                 <img 
-                  src="/images/augeinnovation_logo_512px.png" 
+                  src={process.env.PUBLIC_URL + "/images/augeinnovation_logo_512px.png"} 
                   alt="Auge Innovation Logo" 
                   className="w-10 h-10 object-contain"
                 />

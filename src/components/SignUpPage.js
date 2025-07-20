@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../hooks/useAuth';
+import Footer from './Footer';
 
 const SignUpPage = () => {
   const [formData, setFormData] = useState({
@@ -49,7 +50,8 @@ const SignUpPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-carbon flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-carbon flex flex-col">
+      <div className="flex-1 flex flex-col items-center justify-center p-4">
       {/* Large Logo */}
       <motion.div
         initial={{ opacity: 0, y: -50 }}
@@ -93,7 +95,7 @@ const SignUpPage = () => {
                   name="firstName"
                   value={formData.firstName}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyber-blue focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyber-blue focus:border-transparent text-gray-900 placeholder-gray-500"
                   placeholder="First name"
                   required
                 />
@@ -108,7 +110,7 @@ const SignUpPage = () => {
                   name="lastName"
                   value={formData.lastName}
                   onChange={handleChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyber-blue focus:border-transparent"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyber-blue focus:border-transparent text-gray-900 placeholder-gray-500"
                   placeholder="Last name"
                   required
                 />
@@ -125,7 +127,7 @@ const SignUpPage = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyber-blue focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyber-blue focus:border-transparent text-gray-900 placeholder-gray-500"
                 placeholder="Enter your email"
                 required
               />
@@ -141,7 +143,7 @@ const SignUpPage = () => {
                 name="password"
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyber-blue focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyber-blue focus:border-transparent text-gray-900 placeholder-gray-500"
                 placeholder="Create a password"
                 required
               />
@@ -157,7 +159,7 @@ const SignUpPage = () => {
                 name="confirmPassword"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyber-blue focus:border-transparent"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-cyber-blue focus:border-transparent text-gray-900 placeholder-gray-500"
                 placeholder="Confirm your password"
                 required
               />
@@ -194,6 +196,8 @@ const SignUpPage = () => {
           </div>
         </div>
       </motion.div>
+      </div>
+      <Footer />
     </div>
   );
 };

@@ -14,7 +14,7 @@ import {
 } from 'lucide-react';
 
 const Dashboard = () => {
-  const { user, signOut } = useAuth();
+  const { user, signOut, userRole } = useAuth();
   const navigate = useNavigate();
 
 
@@ -137,6 +137,14 @@ const Dashboard = () => {
                 <User className="w-5 h-5" />
                 <span className="font-tech">{user?.firstName} {user?.lastName}</span>
               </div>
+              {userRole === 'admin' && (
+                <button 
+                  onClick={() => navigate('/admin')}
+                  className="px-4 py-2 border border-cyber-purple/30 text-cyber-purple hover:border-cyber-purple/50 hover:bg-cyber-purple/10 transition-all duration-300 rounded-lg font-cyber font-bold text-sm"
+                >
+                  ADMIN PANEL
+                </button>
+              )}
               <button 
                 onClick={signOut}
                 className="cyber-button text-sm px-3 py-2 whitespace-nowrap"

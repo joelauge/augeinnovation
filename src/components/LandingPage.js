@@ -10,6 +10,7 @@ import {
   ChevronDown,
   Bot
 } from 'lucide-react';
+import Footer from './Footer';
 
 // Animated Text Component for individual character hover effects
 const AnimatedText = ({ text, className, animationProps = {} }) => {
@@ -81,31 +82,31 @@ const LandingPage = () => {
       title: "NEXT-GENERATION",
       subtitle: "FIREARMS TRAINING",
       description: "Revolutionary AI-powered robots for law enforcement and military training",
-      bgVideo: "/images/aerial.webm"
+      bgVideo: process.env.PUBLIC_URL + "/images/aerial.webm"
     },
     {
       title: "MILITARY GRADE",
       subtitle: "ROBOTIC SYSTEMS",
       description: "Heavy weapons resistant platforms for extreme training scenarios",
-      bgVideo: "/images/robotinside.webm"
+      bgVideo: process.env.PUBLIC_URL + "/images/robotinside.webm"
     },
     {
       title: "ADAPTIVE AI",
       subtitle: "TARGET SYSTEMS",
       description: "Intelligent threat assessment and dynamic response capabilities",
-      bgVideo: "/images/robot1.webm"
+      bgVideo: process.env.PUBLIC_URL + "/images/robot1.webm"
     },
     {
       title: "PRECISION TRAINING",
       subtitle: "TECHNOLOGY",
       description: "Advanced targeting systems with real-time feedback and analytics",
-      bgVideo: "/images/aerial.webm"
+      bgVideo: process.env.PUBLIC_URL + "/images/aerial.webm"
     },
     {
       title: "FUTURE OF COMBAT",
       subtitle: "SIMULATION",
       description: "State-of-the-art training environments for modern warfare",
-      bgVideo: "/images/training.webm"
+      bgVideo: process.env.PUBLIC_URL + "/images/training.webm"
     }
   ];
 
@@ -135,7 +136,7 @@ const LandingPage = () => {
           className="flex items-center"
         >
           <img 
-            src="/images/augeinnovation_logo_512px.png" 
+                            src={process.env.PUBLIC_URL + "/images/augeinnovation_logo_512px.png"} 
             alt="Auge Innovation Logo" 
             className="w-20 h-20 object-contain cursor-pointer hover:scale-105 transition-transform duration-300"
             onClick={() => navigate('/')}
@@ -147,14 +148,14 @@ const LandingPage = () => {
           animate={{ opacity: 1, x: 0 }}
           className="flex space-x-4"
         >
-          <button 
-                            onClick={() => window.location.href = '/sign-in'}
+                    <button 
+            onClick={() => navigate('/sign-in')}
             className="cyber-button"
           >
             SIGN IN
           </button>
           <button 
-            onClick={() => window.location.href = '/sign-up'}
+            onClick={() => navigate('/sign-up')}
             className="cyber-button"
           >
             SIGN UP
@@ -225,7 +226,7 @@ const LandingPage = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => window.location.href = '/sign-up'}
+              onClick={() => navigate('/sign-up')}
               className="cyber-button text-base px-6 py-3"
             >
               GET STARTED <ArrowRight className="inline ml-2 w-5 h-5" />
@@ -285,8 +286,7 @@ const LandingPage = () => {
           </div>
         </div>
       </section>
-
-
+      <Footer />
     </div>
   );
 };
