@@ -15,6 +15,14 @@ const SignInPage = () => {
   const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
   const isClerkConfigured = clerkPubKey && clerkPubKey !== 'pk_test_your_clerk_key_here';
 
+  console.log('SignInPage rendered:', {
+    clerkPubKey: clerkPubKey ? 'configured' : 'not configured',
+    isClerkConfigured,
+    currentUrl: window.location.href,
+    pathname: window.location.pathname,
+    hash: window.location.hash
+  });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
@@ -129,8 +137,6 @@ const SignInPage = () => {
               }}
               redirectUrl="/dashboard"
               signUpUrl="/sign-up"
-              routing="path"
-              path="/sign-in"
             />
           ) : (
             // Custom Sign In Form
