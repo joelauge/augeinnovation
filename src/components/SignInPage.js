@@ -135,9 +135,11 @@ const SignInPage = () => {
                   }
                 }
               }}
-              redirectUrl="/dashboard"
+              afterSignInUrl="/dashboard"
               signUpUrl="/sign-up"
               routing="hash"
+              path="/sign-in"
+              redirectUrl={undefined}
             />
           ) : (
             // Custom Sign In Form
