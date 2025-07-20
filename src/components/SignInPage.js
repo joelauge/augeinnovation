@@ -13,7 +13,7 @@ const SignInPage = () => {
 
   // Check if Clerk is properly configured
   const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
-  const isClerkConfigured = clerkPubKey && clerkPubKey !== 'pk_live_Y2xlcmsuYXVnZWlubm92YXRpb24uY29tJA';
+  const isClerkConfigured = clerkPubKey && clerkPubKey.length > 0 && clerkPubKey.startsWith('pk_');
   
   console.log('SignInPage Clerk Debug:', {
     clerkPubKey: clerkPubKey ? 'configured' : 'not configured',
