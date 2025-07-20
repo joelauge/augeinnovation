@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-// import { useAuth } from '../hooks/useClerkAuth';
+import { useUser, useAuth } from '@clerk/clerk-react';
 import { 
   Shield, 
   Target, 
@@ -51,9 +51,30 @@ const AnimatedText = ({ text, className, animationProps = {} }) => {
 
 const LandingPage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  // const { isSignedIn } = useAuth();
-  const isSignedIn = false; // Temporary fallback
+  const { isSignedIn } = useUser();
+  const { signOut } = useAuth();
   const navigate = useNavigate();
+
+  // Check if Clerk is properly configured
+  const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
+  const isClerkConfigured = clerkPubKey && clerkPubKey !== 'pk_test_your_clerk_key_here';
+
+  // Use Clerk authentication if configured, otherwise fallback to demo mode
+  const isAuthenticated = isClerkConfigured ? isSignedIn : false;
+
+  const handleSignOut = async () => {
+    try {
+      if (isClerkConfigured && signOut) {
+        await signOut();
+      }
+      // Always navigate to home page after sign out
+      navigate('/');
+    } catch (error) {
+      console.error('Error signing out:', error);
+      // Still navigate to home page even if sign out fails
+      navigate('/');
+    }
+  };
 
   const features = [
     {
@@ -112,12 +133,6 @@ const LandingPage = () => {
   ];
 
   useEffect(() => {
-    if (isSignedIn) {
-      navigate('/dashboard');
-    }
-  }, [isSignedIn, navigate]);
-
-  useEffect(() => {
     const interval = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
     }, 5000);
@@ -149,18 +164,29 @@ const LandingPage = () => {
           animate={{ opacity: 1, x: 0 }}
           className="flex space-x-4"
         >
-          <button 
-            onClick={() => window.open('https://accounts.augeinnovation.com/sign-in?redirect_url=' + encodeURIComponent(window.location.origin + '/#/dashboard'), '_self')}
-            className="cyber-button"
-          >
-            SIGN IN
-          </button>
-          <button 
-            onClick={() => window.open('https://accounts.augeinnovation.com/sign-up?redirect_url=' + encodeURIComponent(window.location.origin + '/#/dashboard'), '_self')}
-            className="cyber-button"
-          >
-            SIGN UP
-          </button>
+          {isAuthenticated ? (
+            <button 
+              onClick={handleSignOut}
+              className="cyber-button"
+            >
+              SIGN OUT
+            </button>
+          ) : (
+            <>
+              <button 
+                onClick={() => window.open('https://accounts.augeinnovation.com/sign-in?redirect_url=' + encodeURIComponent(window.location.origin + '/#/dashboard'), '_self')}
+                className="cyber-button"
+              >
+                SIGN IN
+              </button>
+              <button 
+                onClick={() => window.open('https://accounts.augeinnovation.com/sign-up?redirect_url=' + encodeURIComponent(window.location.origin + '/#/dashboard'), '_self')}
+                className="cyber-button"
+              >
+                SIGN UP
+              </button>
+            </>
+          )}
         </motion.div>
       </nav>
 
@@ -227,10 +253,10 @@ const LandingPage = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              onClick={() => window.open('https://accounts.augeinnovation.com/sign-up?redirect_url=' + encodeURIComponent(window.location.origin + '/#/dashboard'), '_self')}
+              onClick={() => isAuthenticated ? navigate('/dashboard') : window.open('https://accounts.augeinnovation.com/sign-up?redirect_url=' + encodeURIComponent(window.location.origin + '/#/dashboard'), '_self')}
               className="cyber-button text-base px-6 py-3"
             >
-              GET STARTED <ArrowRight className="inline ml-2 w-5 h-5" />
+              {isAuthenticated ? 'GO TO DASHBOARD' : 'GET STARTED'} <ArrowRight className="inline ml-2 w-5 h-5" />
             </motion.button>
           </motion.div>
         </div>
