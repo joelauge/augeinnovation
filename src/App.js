@@ -6,12 +6,11 @@ import ProductPage from './components/ProductPage';
 import SignUpPage from './components/SignUpPage';
 import SignInPage from './components/SignInPage';
 import ContactPage from './components/ContactPage';
-
 import AdminDashboard from './components/AdminDashboard';
 import './App.css';
 
 function App() {
-  console.log('App rendering without auth...');
+  console.log('App rendering full version...');
 
   return (
     <div className="App min-h-screen bg-carbon flex flex-col">
