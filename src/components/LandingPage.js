@@ -101,7 +101,7 @@ const LandingPage = () => {
 
   const heroSlides = [
     {
-      title: "NEXT-GENERATION",
+      title: "NEXT GENERATION",
       subtitle: "FIREARMS TRAINING",
       description: "Revolutionary AI-powered robots for law enforcement and military training",
       bgVideo: process.env.PUBLIC_URL + "/images/aerial.webm"
