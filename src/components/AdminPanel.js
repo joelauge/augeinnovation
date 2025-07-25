@@ -27,11 +27,16 @@ const AdminPanel = () => {
   // Check if user is admin
   const isAdmin = user?.emailAddresses?.[0]?.emailAddress === 'pierre@augeinnovation.com' || user?.emailAddresses?.[0]?.emailAddress === 'joelauge@gmail.com';
   const userEmail = user?.emailAddresses?.[0]?.emailAddress;
+  
+  console.log("AdminPanel: user object:", user);
+  console.log("AdminPanel: userEmail:", userEmail);
+  console.log("AdminPanel: isAdmin:", isAdmin);
 
   // Fetch users from backend API
   useEffect(() => {
     const loadUsers = async () => {
       try {
+        console.log("AdminPanel: loadUsers called with userEmail:", userEmail);
         const users = await fetchUsers(userEmail);
         setPendingUsers(users.filter(u => u.approvalStatus === 'pending'));
         setApprovedUsers(users.filter(u => u.approvalStatus === 'approved'));
