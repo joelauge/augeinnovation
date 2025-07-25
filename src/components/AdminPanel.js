@@ -28,9 +28,11 @@ const AdminPanel = () => {
   const isAdmin = user?.emailAddresses?.[0]?.emailAddress === 'pierre@augeinnovation.com' || user?.emailAddresses?.[0]?.emailAddress === 'joelauge@gmail.com';
   const userEmail = user?.emailAddresses?.[0]?.emailAddress;
   
-  console.log("AdminPanel: user object:", user);
-  console.log("AdminPanel: userEmail:", userEmail);
-  console.log("AdminPanel: isAdmin:", isAdmin);
+  console.log("🔍 DEBUG: AdminPanel component loaded");
+  console.log("🔍 DEBUG: user object:", user);
+  console.log("🔍 DEBUG: userEmail:", userEmail);
+  console.log("🔍 DEBUG: isAdmin:", isAdmin);
+  console.log("🔍 DEBUG: user.emailAddresses:", user?.emailAddresses);
 
   // Fetch users from backend API
   useEffect(() => {

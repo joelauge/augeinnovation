@@ -1,9 +1,12 @@
 const API_BASE = "https://augeinnovation.vercel.app/api";
 
 export async function fetchUsers(userEmail) {
-  console.log("Admin API: using userEmail header:", userEmail);
-  console.log("Admin API: userEmail type:", typeof userEmail);
-  console.log("Admin API: userEmail length:", userEmail?.length);
+  console.log("🔍 DEBUG: Admin API fetchUsers called");
+  console.log("🔍 DEBUG: userEmail value:", userEmail);
+  console.log("🔍 DEBUG: userEmail type:", typeof userEmail);
+  console.log("🔍 DEBUG: userEmail length:", userEmail?.length);
+  console.log("🔍 DEBUG: Is joelauge@gmail.com?", userEmail === 'joelauge@gmail.com');
+  console.log("🔍 DEBUG: Is pierre@augeinnovation.com?", userEmail === 'pierre@augeinnovation.com');
   
   const res = await fetch(`${API_BASE}/admin-users`, {
     headers: { "x-admin-email": userEmail }
