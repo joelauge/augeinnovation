@@ -1,0 +1,27 @@
+{
+  "functions": {
+    "admin-users.js": {
+      "runtime": "nodejs18.x"
+    },
+    "admin-approve.js": {
+      "runtime": "nodejs18.x"
+    },
+    "admin-reject.js": {
+      "runtime": "nodejs18.x"
+    }
+  },
+  "routes": [
+    {
+      "src": "/admin-users",
+      "dest": "/admin-users.js"
+    },
+    {
+      "src": "/admin-approve",
+      "dest": "/admin-approve.js"
+    },
+    {
+      "src": "/admin-reject",
+      "dest": "/admin-reject.js"
+    }
+  ]
+} 
