@@ -1,13 +1,13 @@
 {
   "functions": {
     "api/admin-users.js": {
-      "runtime": "nodejs18.x"
+      "runtime": "@vercel/node@3.0.0"
     },
     "api/admin-approve.js": {
-      "runtime": "nodejs18.x"
+      "runtime": "@vercel/node@3.0.0"
     },
     "api/admin-reject.js": {
-      "runtime": "nodejs18.x"
+      "runtime": "@vercel/node@3.0.0"
     }
   }
 } 
