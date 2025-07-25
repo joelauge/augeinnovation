@@ -41,35 +41,16 @@ const useApprovalStatus = () => {
           return;
         }
 
-        // Mock approval logic - in production, this would come from your backend
-        let status = 'pending';
-        let approved = false;
-
-        // Auto-approve admin users
-        if (userEmail.includes('admin')) {
+        // Only auto-approve if user is one of the two admins
+        let status;
+        let approved;
+        if (userEmail === 'pierre@augeinnovation.com' || userEmail === 'joelauge@gmail.com') {
           status = 'approved';
           approved = true;
+        } else {
+          status = 'pending';
+          approved = false;
         }
-        // Auto-approve certain domains for demo purposes
-        else if (
-          userEmail.includes('@lawenforcement.gov') ||
-          userEmail.includes('@military.mil') ||
-          userEmail.includes('@swat.gov') ||
-          userEmail.includes('@marines.mil') ||
-          userEmail.includes('@augeinnovation.com')
-        ) {
-          status = 'approved';
-          approved = true;
-        }
-        // For demo purposes, auto-approve after a short delay
-        else {
-          // Simulate approval after 5 seconds for demo
-          setTimeout(() => {
-            setApprovalStatus('approved');
-            setIsApproved(true);
-          }, 5000);
-        }
-
         setApprovalStatus(status);
         setIsApproved(approved);
         setIsLoading(false);

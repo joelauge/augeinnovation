@@ -13,6 +13,7 @@ import {
   Users, 
   Search
 } from 'lucide-react';
+import { fetchUsers, approveUser, rejectUser } from '../services/adminApi';
 
 const AdminPanel = () => {
   const { user } = useUser();
@@ -24,66 +25,20 @@ const AdminPanel = () => {
   const [activeTab, setActiveTab] = useState('pending');
 
   // Check if user is admin
-  const isAdmin = user?.emailAddresses?.[0]?.emailAddress?.includes('admin');
+  const isAdmin = user?.emailAddresses?.[0]?.emailAddress === 'pierre@augeinnovation.com' || user?.emailAddresses?.[0]?.emailAddress === 'joelauge@gmail.com';
 
-  // Mock data for demonstration - in production, this would come from your backend
+  // Fetch users from backend API
   useEffect(() => {
-    // Simulate fetching users from Clerk or your backend
-    const mockPendingUsers = [
-      {
-        id: '1',
-        firstName: 'John',
-        lastName: 'Smith',
-        email: 'john.smith@lawenforcement.gov',
-        createdAt: '2024-01-15T10:30:00Z',
-        organization: 'City Police Department',
-        status: 'pending'
-      },
-      {
-        id: '2',
-        firstName: 'Sarah',
-        lastName: 'Johnson',
-        email: 'sarah.johnson@military.mil',
-        createdAt: '2024-01-14T14:20:00Z',
-        organization: 'US Army',
-        status: 'pending'
-      },
-      {
-        id: '3',
-        firstName: 'Mike',
-        lastName: 'Davis',
-        email: 'mike.davis@security.com',
-        createdAt: '2024-01-13T09:15:00Z',
-        organization: 'Private Security Firm',
-        status: 'pending'
+    const loadUsers = async () => {
+      try {
+        const users = await fetchUsers();
+        setPendingUsers(users.filter(u => u.approvalStatus === 'pending'));
+        setApprovedUsers(users.filter(u => u.approvalStatus === 'approved'));
+      } catch (err) {
+        console.error('Failed to fetch users:', err);
       }
-    ];
-
-    const mockApprovedUsers = [
-      {
-        id: '4',
-        firstName: 'Alex',
-        lastName: 'Wilson',
-        email: 'alex.wilson@swat.gov',
-        createdAt: '2024-01-10T11:00:00Z',
-        approvedAt: '2024-01-12T15:30:00Z',
-        organization: 'SWAT Team',
-        status: 'approved'
-      },
-      {
-        id: '5',
-        firstName: 'Lisa',
-        lastName: 'Brown',
-        email: 'lisa.brown@marines.mil',
-        createdAt: '2024-01-08T16:45:00Z',
-        approvedAt: '2024-01-11T10:20:00Z',
-        organization: 'US Marines',
-        status: 'approved'
-      }
-    ];
-
-    setPendingUsers(mockPendingUsers);
-    setApprovedUsers(mockApprovedUsers);
+    };
+    loadUsers();
   }, []);
 
   const handleSignOut = async () => {
@@ -97,61 +52,26 @@ const AdminPanel = () => {
   };
 
   const handleApprove = async (userId) => {
-    // In production, this would make an API call to approve the user
-    console.log('Approving user:', userId);
-    
-    // Move user from pending to approved
-    const userToApprove = pendingUsers.find(u => u.id === userId);
-    if (userToApprove) {
-      const approvedUser = {
-        ...userToApprove,
-        status: 'approved',
-        approvedAt: new Date().toISOString()
-      };
-      
-      setApprovedUsers(prev => [approvedUser, ...prev]);
-      setPendingUsers(prev => prev.filter(u => u.id !== userId));
-      
-      // Send approval notification email
-      const userData = {
-        firstName: userToApprove.firstName,
-        lastName: userToApprove.lastName,
-        emailAddresses: [{ emailAddress: userToApprove.email }]
-      };
-      
-      const emailResult = await sendUserApprovalNotification(userData);
-      if (emailResult.success) {
-        console.log('Approval notification sent successfully');
-      } else {
-        console.warn('Failed to send approval notification:', emailResult.error);
-      }
+    try {
+      await approveUser(userId);
+      // Refresh user list
+      const users = await fetchUsers();
+      setPendingUsers(users.filter(u => u.approvalStatus === 'pending'));
+      setApprovedUsers(users.filter(u => u.approvalStatus === 'approved'));
+    } catch (err) {
+      console.error('Failed to approve user:', err);
     }
   };
 
   const handleReject = async (userId) => {
-    // In production, this would make an API call to reject the user
-    console.log('Rejecting user:', userId);
-    
-    // Get user data before removing from list
-    const userToReject = pendingUsers.find(u => u.id === userId);
-    
-    // Remove user from pending list
-    setPendingUsers(prev => prev.filter(u => u.id !== userId));
-    
-    // Send rejection notification email
-    if (userToReject) {
-      const userData = {
-        firstName: userToReject.firstName,
-        lastName: userToReject.lastName,
-        emailAddresses: [{ emailAddress: userToReject.email }]
-      };
-      
-      const emailResult = await sendUserRejectionNotification(userData);
-      if (emailResult.success) {
-        console.log('Rejection notification sent successfully');
-      } else {
-        console.warn('Failed to send rejection notification:', emailResult.error);
-      }
+    try {
+      await rejectUser(userId);
+      // Refresh user list
+      const users = await fetchUsers();
+      setPendingUsers(users.filter(u => u.approvalStatus === 'pending'));
+      setApprovedUsers(users.filter(u => u.approvalStatus === 'approved'));
+    } catch (err) {
+      console.error('Failed to reject user:', err);
     }
   };
 

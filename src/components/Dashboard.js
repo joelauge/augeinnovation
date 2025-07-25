@@ -33,8 +33,8 @@ const Dashboard = () => {
     email: user.emailAddresses?.[0]?.emailAddress || 'user@example.com'
   } : fallbackUser;
 
-  // Determine user role (admin if email contains 'admin')
-  const userRole = currentUser.email?.includes('admin') ? 'admin' : 'user';
+  // Determine user role (admin if email matches one of the two admin emails)
+  const isAdmin = currentUser.email === 'joelauge@gmail.com' || currentUser.email === 'pierre@augeinnovation.com';
 
   const handleSignOut = async () => {
     try {
@@ -180,7 +180,7 @@ const Dashboard = () => {
                 <User className="w-5 h-5" />
                 <span className="font-tech">{currentUser?.firstName} {currentUser?.lastName}</span>
               </div>
-              {userRole === 'admin' && (
+              {isAdmin && (
                 <button 
                   onClick={() => navigate('/admin')}
                   className="px-4 py-2 border border-cyber-purple/30 text-cyber-purple hover:border-cyber-purple/50 hover:bg-cyber-purple/10 transition-all duration-300 rounded-lg font-cyber font-bold text-sm"

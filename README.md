@@ -170,6 +170,16 @@ The application is configured for Netlify deployment with:
 VITE_CLERK_PUBLISHABLE_KEY=your_clerk_key_here
 ```
 
+## Vercel Serverless API
+
+This project uses a `/api` directory at the project root for Vercel serverless functions. These functions handle backend logic such as fetching Clerk users, approving, and rejecting users. The frontend Admin Panel will call these endpoints for real user approval workflows.
+
+- `/api/admin/users` (GET): List all users and their approval status
+- `/api/admin/approve` (POST): Approve a user
+- `/api/admin/reject` (POST): Reject a user
+
+You must set your Clerk API key as an environment variable in Vercel for these endpoints to work securely.
+
 ## 🤝 **Contributing**
 
 1. Fork the repository
