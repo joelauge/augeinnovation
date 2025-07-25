@@ -5,12 +5,6 @@ const EMAILJS_SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
 const EMAILJS_PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
 
-// Admin email addresses
-const ADMIN_EMAILS = [
-  'joelauge@gmail.com',
-  'pierre@augeinnovation.com'
-];
-
 /**
  * Send user signup notification to admin emails
  * @param {Object} userData - User data from Clerk
