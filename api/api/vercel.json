@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "api/admin-users.js": {
+      "runtime": "nodejs18.x"
+    },
+    "api/admin-approve.js": {
+      "runtime": "nodejs18.x"
+    },
+    "api/admin-reject.js": {
+      "runtime": "nodejs18.x"
+    }
+  }
+} 
