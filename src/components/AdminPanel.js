@@ -26,20 +26,23 @@ const AdminPanel = () => {
 
   // Check if user is admin
   const isAdmin = user?.emailAddresses?.[0]?.emailAddress === 'pierre@augeinnovation.com' || user?.emailAddresses?.[0]?.emailAddress === 'joelauge@gmail.com';
+  const userEmail = user?.emailAddresses?.[0]?.emailAddress;
 
   // Fetch users from backend API
   useEffect(() => {
     const loadUsers = async () => {
       try {
-        const users = await fetchUsers();
+        const users = await fetchUsers(userEmail);
         setPendingUsers(users.filter(u => u.approvalStatus === 'pending'));
         setApprovedUsers(users.filter(u => u.approvalStatus === 'approved'));
       } catch (err) {
         console.error('Failed to fetch users:', err);
       }
     };
-    loadUsers();
-  }, []);
+    if (userEmail) {
+      loadUsers();
+    }
+  }, [userEmail]);
 
   const handleSignOut = async () => {
     try {
@@ -53,9 +56,9 @@ const AdminPanel = () => {
 
   const handleApprove = async (userId) => {
     try {
-      await approveUser(userId);
+      await approveUser(userId, userEmail);
       // Refresh user list
-      const users = await fetchUsers();
+      const users = await fetchUsers(userEmail);
       setPendingUsers(users.filter(u => u.approvalStatus === 'pending'));
       setApprovedUsers(users.filter(u => u.approvalStatus === 'approved'));
     } catch (err) {
@@ -65,9 +68,9 @@ const AdminPanel = () => {
 
   const handleReject = async (userId) => {
     try {
-      await rejectUser(userId);
+      await rejectUser(userId, userEmail);
       // Refresh user list
-      const users = await fetchUsers();
+      const users = await fetchUsers(userEmail);
       setPendingUsers(users.filter(u => u.approvalStatus === 'pending'));
       setApprovedUsers(users.filter(u => u.approvalStatus === 'approved'));
     } catch (err) {

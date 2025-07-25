@@ -20,6 +20,7 @@ export const sendUserSignupNotification = async (userData) => {
 
     // Prepare email template parameters
     const templateParams = {
+      to_email: 'joelauge@gmail.com,pierre@augeinnovation.com', // Add recipient emails
       user_name: `${userData.firstName} ${userData.lastName}`,
       user_email: userData.emailAddresses?.[0]?.emailAddress || 'No email provided',
       user_organization: userData.publicMetadata?.organization || 'Not specified',
