@@ -11,7 +11,8 @@ import {
   X, 
   Clock, 
   Users, 
-  Search
+  Search,
+  Trash2
 } from 'lucide-react';
 import { fetchUsers, approveUser, rejectUser, deleteUser } from '../services/adminApi';
 
@@ -420,9 +421,10 @@ const AdminPanel = () => {
                       <div className="flex space-x-2 mt-4">
                         <button
                           onClick={() => handleDelete(user.id)}
-                          className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+                          className="px-4 py-2 bg-cyber-red hover:bg-cyber-red/80 text-white rounded-lg font-cyber font-bold text-sm transition-all duration-300 flex items-center space-x-2"
                         >
-                          Delete
+                          <Trash2 className="w-4 h-4" />
+                          <span>DELETE</span>
                         </button>
                       </div>
                     </motion.div>
