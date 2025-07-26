@@ -17,6 +17,7 @@ import {
 import { fetchUsers, approveUser, rejectUser, deleteUser } from '../services/adminApi';
 
 const AdminPanel = () => {
+  // Always call hooks (React rule), but handle null cases
   const { user } = useUser();
   const { signOut } = useAuth();
   const navigate = useNavigate();
@@ -24,6 +25,10 @@ const AdminPanel = () => {
   const [approvedUsers, setApprovedUsers] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
   const [activeTab, setActiveTab] = useState('pending');
+
+  // Check if Clerk is properly configured
+  const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
+  const isClerkConfigured = clerkPubKey && clerkPubKey !== 'pk_test_your_clerk_key_here';
 
   // Check if user is admin
   const isAdmin = user?.emailAddresses?.[0]?.emailAddress === 'pierre@augeinnovation.com' || user?.emailAddresses?.[0]?.emailAddress === 'joelauge@gmail.com';

@@ -1,12 +1,18 @@
 import { useState, useEffect } from 'react';
 import { useUser } from '@clerk/clerk-react';
-// import { sendUserSignupNotification } from '../services/emailService';
+import { sendUserSignupNotification } from '../services/emailService';
 
 export const useApprovalStatus = () => {
-  const { user } = useUser();
-  const [approvalStatus, setApprovalStatus] = useState('pending');
   const [isApproved, setIsApproved] = useState(false);
+  const [approvalStatus, setApprovalStatus] = useState('pending');
   const [isLoading, setIsLoading] = useState(true);
+
+  // Always call hooks (React rule), but handle null cases
+  const { user } = useUser();
+
+  // Check if Clerk is properly configured
+  const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
+  const isClerkConfigured = clerkPubKey && clerkPubKey !== 'pk_test_your_clerk_key_here';
 
   useEffect(() => {
     const checkApprovalStatus = async () => {

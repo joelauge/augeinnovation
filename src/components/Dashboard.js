@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 
 const Dashboard = () => {
+  // Always call hooks (React rule), but handle null cases
   const { user } = useUser();
   const { signOut } = useAuth();
   const navigate = useNavigate();
