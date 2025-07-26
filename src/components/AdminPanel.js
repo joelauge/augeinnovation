@@ -403,20 +403,28 @@ const AdminPanel = () => {
                         </div>
                         <div>
                           <p className="text-titanium">Organization</p>
-                          <p className="text-white font-tech">{user.organization}</p>
+                          <p className="text-white font-tech">{user.organization || 'N/A'}</p>
                         </div>
                         <div>
                           <p className="text-titanium">Registration Date</p>
                           <p className="text-white font-tech">
-                            {new Date(user.createdAt).toLocaleDateString()}
+                            {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}
                           </p>
                         </div>
                         <div>
                           <p className="text-titanium">Approved Date</p>
                           <p className="text-white font-tech">
-                            {new Date(user.approvedAt).toLocaleDateString()}
+                            {user.approvedAt ? new Date(user.approvedAt).toLocaleDateString() : 'N/A'}
                           </p>
                         </div>
+                      </div>
+                      {/* Debug info - remove after testing */}
+                      <div className="mt-2 p-2 bg-gray-900/50 rounded text-xs text-titanium">
+                        <p>Debug: createdAt={JSON.stringify(user.createdAt)}, approvedAt={JSON.stringify(user.approvedAt)}</p>
+                      </div>
+                      {/* Debug info - remove after testing */}
+                      <div className="mt-2 p-2 bg-red-900/50 rounded text-xs text-red-300">
+                        <p>Debug: Delete button should be here for user {user.id}</p>
                       </div>
                       <div className="flex space-x-2 mt-4">
                         <button
