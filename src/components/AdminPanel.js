@@ -34,6 +34,9 @@ const AdminPanel = () => {
   console.log("🔍 DEBUG: userEmail:", userEmail);
   console.log("🔍 DEBUG: isAdmin:", isAdmin);
   console.log("🔍 DEBUG: user.emailAddresses:", user?.emailAddresses);
+  console.log("🔍 DEBUG: activeTab:", activeTab);
+  console.log("🔍 DEBUG: pendingUsers.length:", pendingUsers.length);
+  console.log("🔍 DEBUG: approvedUsers.length:", approvedUsers.length);
 
   // Fetch users from backend API
   useEffect(() => {
@@ -372,6 +375,13 @@ const AdminPanel = () => {
             </div>
           ) : (
             <div>
+              {/* Debug info - remove after testing */}
+              <div className="mb-4 p-4 bg-blue-900/50 rounded text-sm text-blue-300">
+                <p>Debug: Rendering APPROVED USERS section</p>
+                <p>filteredApprovedUsers.length: {filteredApprovedUsers.length}</p>
+                <p>approvedUsers.length: {approvedUsers.length}</p>
+                <p>activeTab: {activeTab}</p>
+              </div>
               <h3 className="text-xl font-cyber font-bold text-white mb-6">APPROVED USERS</h3>
               {filteredApprovedUsers.length === 0 ? (
                 <div className="text-center py-8">
@@ -380,7 +390,11 @@ const AdminPanel = () => {
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {filteredApprovedUsers.map((user) => (
+                  {/* Debug info - remove after testing */}
+                  <div className="p-4 bg-green-900/50 rounded text-sm text-green-300">
+                    <p>Debug: About to map {filteredApprovedUsers.length} approved users</p>
+                  </div>
+                  {filteredApprovedUsers.map((user, index) => (
                     <motion.div
                       key={user.id}
                       initial={{ opacity: 0, x: -20 }}
