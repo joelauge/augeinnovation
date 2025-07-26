@@ -3,16 +3,12 @@ import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useUser, useAuth } from '@clerk/clerk-react';
 import { 
-  Target, 
   Shield, 
+  Target, 
   Zap, 
-  Bot, 
-  ArrowRight,
-  Play,
-  Users,
-  Award,
-  Clock,
-  ChevronDown
+  ArrowRight, 
+  ChevronDown,
+  Bot
 } from 'lucide-react';
 import Footer from './Footer';
 
@@ -53,21 +49,10 @@ const AnimatedText = ({ text, className, animationProps = {} }) => {
   );
 };
 
-// Wrapper component that handles Clerk availability
-const LandingPageWithClerk = () => {
+const LandingPage = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
   const { isSignedIn } = useUser();
   const { signOut } = useAuth();
-  return <LandingPageContent isSignedIn={isSignedIn} signOut={signOut} />;
-};
-
-// Fallback component when Clerk is not available
-const LandingPageWithoutClerk = () => {
-  return <LandingPageContent isSignedIn={false} signOut={null} />;
-};
-
-// Main content component
-const LandingPageContent = ({ isSignedIn, signOut }) => {
-  const [currentSlide, setCurrentSlide] = useState(0);
   const navigate = useNavigate();
 
   // Check if Clerk is properly configured
@@ -331,18 +316,6 @@ const LandingPageContent = ({ isSignedIn, signOut }) => {
       <Footer />
     </div>
   );
-};
-
-// Main component that chooses the right implementation based on Clerk availability
-const LandingPage = () => {
-  const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
-  const isClerkConfigured = clerkPubKey && clerkPubKey !== 'pk_test_your_clerk_key_here';
-  
-  if (isClerkConfigured) {
-    return <LandingPageWithClerk />;
-  } else {
-    return <LandingPageWithoutClerk />;
-  }
 };
 
 export default LandingPage; 
