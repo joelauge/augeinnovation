@@ -11,7 +11,8 @@ import {
   Play,
   Users,
   Award,
-  Clock
+  Clock,
+  ChevronDown
 } from 'lucide-react';
 import Footer from './Footer';
 
