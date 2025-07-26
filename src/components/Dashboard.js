@@ -15,42 +15,17 @@ import {
   Cpu
 } from 'lucide-react';
 
-const Dashboard = () => {
-  // Always call hooks (React rule), but handle null cases
-  const { user } = useUser();
-  const { signOut } = useAuth();
+// Check if Clerk is properly configured
+const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
+const isClerkConfigured = clerkPubKey && clerkPubKey !== 'pk_test_your_clerk_key_here';
+
+// Fallback Dashboard component when Clerk is not configured
+const FallbackDashboard = () => {
   const navigate = useNavigate();
-  const { isApproved, isLoading } = useApprovalStatus();
-
-  // Check if Clerk is properly configured
-  const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
-  const isClerkConfigured = clerkPubKey && clerkPubKey !== 'pk_test_your_clerk_key_here';
-
-  // Fallback user data if Clerk is not configured
-  const fallbackUser = { firstName: 'Demo', lastName: 'User', email: 'demo@augeinnovation.com' };
-  const currentUser = isClerkConfigured && user ? {
-    firstName: user.firstName || 'User',
-    lastName: user.lastName || '',
-    email: user.emailAddresses?.[0]?.emailAddress || 'user@example.com'
-  } : fallbackUser;
-
-  // Determine user role (admin if email matches one of the two admin emails)
-  const isAdmin = currentUser.email === 'joelauge@gmail.com' || currentUser.email === 'pierre@augeinnovation.com';
-
-  const handleSignOut = async () => {
-    try {
-      if (isClerkConfigured && signOut) {
-        await signOut();
-      }
-      // Always navigate to home page after sign out
-      navigate('/');
-    } catch (error) {
-      console.error('Error signing out:', error);
-      // Still navigate to home page even if sign out fails
-      navigate('/');
-    }
+  
+  const handleSignOut = () => {
+    navigate('/');
   };
-
 
   const products = [
     {
@@ -98,221 +73,356 @@ const Dashboard = () => {
         'Modular weapon systems',
         'Advanced mobility',
         'Remote control capabilities',
-        'Customizable configurations'
+        'Real-time video feed'
       ],
       icon: <Bot className="w-12 h-12" />,
       category: 'robots',
-      color: 'from-cyber-green to-cyber-blue'
+      color: 'from-cyber-green to-cyber-teal'
     },
     {
-      id: 'heavy-weapons-robots',
-      title: 'Heavy Weapons Resistant Robot',
-      price: 200000,
+      id: 'training-systems',
+      title: 'Next Generation Training Systems',
+      price: 25000,
       period: 'one-time',
-      description: 'Ultra-resistant robotic platforms designed for extreme combat environments',
+      description: 'Comprehensive training systems with AI-driven scenarios and analytics',
       features: [
-        'Heavy weapons resistance',
-        'Advanced armor systems',
-        'High-capacity weapon mounts',
-        'Extended operational range',
-        'Multi-environment deployment'
+        'AI-powered scenarios',
+        'Performance analytics',
+        'Customizable training modules',
+        'Real-time feedback',
+        'Multi-user support'
       ],
       icon: <Zap className="w-12 h-12" />,
-      category: 'robots',
-      color: 'from-cyber-purple to-cyber-red'
+      category: 'training',
+      color: 'from-cyber-yellow to-cyber-orange'
     }
   ];
 
-  const categories = [
-    { id: 'all', name: 'All Products', icon: <Cpu className="w-5 h-5" /> },
-    { id: 'law-enforcement', name: 'Law Enforcement', icon: <Shield className="w-5 h-5" /> },
-    { id: 'military', name: 'Military', icon: <Target className="w-5 h-5" /> },
-    { id: 'robots', name: 'Robotic Systems', icon: <Bot className="w-5 h-5" /> }
-  ];
-
-  const [selectedCategory, setSelectedCategory] = useState('all');
-
-  const filteredProducts = selectedCategory === 'all' 
-    ? products 
-    : products.filter(product => product.category === selectedCategory);
-
-  if (isLoading) {
-    return <div className="min-h-screen bg-carbon flex items-center justify-center">
-      <p className="text-white text-2xl">Loading approval status...</p>
-    </div>;
-  }
-
-  if (!isApproved) {
-    return <ApprovalPending />;
-  }
-
   return (
-    <div className="min-h-screen bg-carbon">
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
       {/* Header */}
-      <header className="cyber-gradient border-b border-cyber-blue/30">
-        <div className="max-w-7xl mx-auto px-6 py-4">
-          <div className="flex justify-between items-center">
-            <motion.div 
-              initial={{ opacity: 0, x: -50 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="flex items-center space-x-4"
-            >
+      <header className="bg-black/50 backdrop-blur-sm border-b border-cyber-blue/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <div className="flex items-center space-x-4">
               <img 
-                src={process.env.PUBLIC_URL + "/images/augeinnovation_logo_512px.png"} 
-                alt="Auge Innovation Logo" 
-                className="w-24 h-24 object-contain cursor-pointer hover:scale-105 transition-transform duration-300"
-                onClick={() => navigate('/')}
-                onError={(e) => {
-                  console.error('Logo failed to load:', e.target.src);
-                  e.target.style.display = 'none';
-                }}
+                src="/images/augeinnovation_logo_words512px.png" 
+                alt="Auge Innovation" 
+                className="h-8 w-auto"
               />
-              <div>
-                <p className="text-sm text-titanium">Client Portal</p>
-              </div>
-            </motion.div>
-            
-            <motion.div 
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              className="flex items-center space-x-4"
-            >
-              <div className="flex items-center space-x-2 text-titanium">
-                <User className="w-5 h-5" />
-                <span className="font-tech">{currentUser?.firstName} {currentUser?.lastName}</span>
-              </div>
-              {isAdmin && (
-                <button 
-                  onClick={() => navigate('/admin')}
-                  className="px-4 py-2 border border-cyber-purple/30 text-cyber-purple hover:border-cyber-purple/50 hover:bg-cyber-purple/10 transition-all duration-300 rounded-lg font-cyber font-bold text-sm"
-                >
-                  ADMIN PANEL
-                </button>
-              )}
-              <button 
+            </div>
+            <div className="flex items-center space-x-4">
+              <button
                 onClick={handleSignOut}
-                className="cyber-button text-sm px-3 py-2 whitespace-nowrap"
+                className="flex items-center space-x-2 px-4 py-2 bg-cyber-red hover:bg-cyber-red/80 text-white rounded-md transition-all duration-200 hover:scale-105"
               >
-                <LogOut className="w-4 h-4 mr-1" />
-                SIGN OUT
+                <LogOut className="w-4 h-4" />
+                <span>SIGN OUT</span>
               </button>
-            </motion.div>
+            </div>
           </div>
         </div>
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-6 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Welcome Section */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="cyber-card mb-8"
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
         >
-          <h2 className="text-3xl font-cyber font-bold neon-text mb-2">
-            WELCOME BACK, {currentUser?.firstName?.toUpperCase()}
-          </h2>
-          <p className="text-titanium text-lg">
-            Explore our advanced firearms training solutions and robotic systems
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyber-blue to-cyber-purple bg-clip-text text-transparent">
+            Welcome to Auge Innovation
+          </h1>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Advanced Firearms Training Robots and AI-Powered Training Solutions
           </p>
-        </motion.div>
-
-        {/* Category Filter */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="flex flex-wrap gap-4 mb-8"
-        >
-          {categories.map((category) => (
-            <button
-              key={category.id}
-              onClick={() => setSelectedCategory(category.id)}
-              className={`flex items-center space-x-2 px-4 py-2 rounded-lg border transition-all duration-300 ${
-                selectedCategory === category.id
-                  ? 'border-cyber-blue bg-cyber-blue/20 text-cyber-blue'
-                  : 'border-cyber-blue/30 text-titanium hover:border-cyber-blue/50 hover:bg-cyber-blue/10'
-              }`}
-            >
-              {category.icon}
-              <span className="font-tech">{category.name}</span>
-            </button>
-          ))}
+          <div className="mt-6 p-4 bg-cyber-blue/10 border border-cyber-blue/20 rounded-lg">
+            <p className="text-cyber-blue">
+              ⚠️ Demo Mode: Clerk authentication is not configured. Please contact support for full access.
+            </p>
+          </div>
         </motion.div>
 
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
-          {filteredProducts.map((product, index) => (
+          {products.map((product, index) => (
             <motion.div
               key={product.id}
-              initial={{ opacity: 0, y: 50 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: index * 0.1 }}
-              className="cyber-card group hover:scale-105 transition-transform duration-300"
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="bg-gradient-to-br from-gray-800 to-gray-900 border border-cyber-blue/20 rounded-lg p-6 hover:border-cyber-blue/40 transition-all duration-300 hover:scale-105"
             >
-              <div className="flex items-start justify-between mb-4">
-                <div className="w-16 h-16 bg-cyber-dark border border-cyber-blue/30 rounded-lg flex items-center justify-center text-cyber-blue">
+              <div className="flex items-center justify-between mb-4">
+                <div className={`p-3 rounded-lg bg-gradient-to-r ${product.color}`}>
                   {product.icon}
                 </div>
                 <div className="text-right">
-                  <div className="text-3xl font-cyber font-bold text-white">
-                    ${product.price.toLocaleString()}
-                  </div>
-                  <div className="text-sm text-titanium">{product.period}</div>
+                  <div className="text-2xl font-bold text-cyber-blue">${product.price.toLocaleString()}</div>
+                  <div className="text-sm text-gray-400">{product.period}</div>
                 </div>
               </div>
               
-              <h3 className="text-xl font-cyber font-bold text-white mb-3">
-                {product.title}
-              </h3>
+              <h3 className="text-xl font-bold mb-2 text-white">{product.title}</h3>
+              <p className="text-gray-300 mb-4">{product.description}</p>
               
-              <p className="text-titanium mb-4">
-                {product.description}
-              </p>
-              
-              <div className="mb-6">
-                <h4 className="text-sm font-cyber font-bold text-cyber-blue mb-2 uppercase tracking-wide">
-                  Key Features
-                </h4>
-                <ul className="space-y-1">
-                  {product.features.map((feature, idx) => (
-                    <li key={idx} className="text-sm text-titanium flex items-center">
-                      <div className="w-1.5 h-1.5 bg-cyber-blue rounded-full mr-2"></div>
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
+              <ul className="space-y-2 mb-6">
+                {product.features.map((feature, featureIndex) => (
+                  <li key={featureIndex} className="flex items-center text-sm text-gray-300">
+                    <div className="w-2 h-2 bg-cyber-blue rounded-full mr-3"></div>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
               
               <button
                 onClick={() => navigate(`/product/${product.id}`)}
-                className="cyber-button w-full group-hover:animate-cyber-pulse"
+                className="w-full bg-gradient-to-r from-cyber-blue to-cyber-purple hover:from-cyber-purple hover:to-cyber-blue text-white font-bold py-3 px-6 rounded-md transition-all duration-200 hover:scale-105 flex items-center justify-center space-x-2"
               >
-                VIEW DETAILS <ArrowRight className="inline ml-2 w-4 h-4" />
+                <span>VIEW DETAILS</span>
+                <ArrowRight className="w-4 h-4" />
               </button>
             </motion.div>
           ))}
         </div>
-
-        {/* Empty State */}
-        {filteredProducts.length === 0 && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            className="text-center py-12"
-          >
-            <div className="text-6xl mb-4">🤖</div>
-            <h3 className="text-2xl font-cyber font-bold text-white mb-2">
-              NO PRODUCTS FOUND
-            </h3>
-            <p className="text-titanium">
-              Try selecting a different category or contact us for custom solutions.
-            </p>
-          </motion.div>
-        )}
       </main>
     </div>
   );
+};
+
+// Main Dashboard component with Clerk integration
+const ClerkDashboard = () => {
+  // Always call hooks (React rule), but handle null cases
+  const { user } = useUser();
+  const { signOut } = useAuth();
+  const navigate = useNavigate();
+  const { isApproved, isLoading } = useApprovalStatus();
+
+  // Fallback user data if Clerk is not configured
+  const fallbackUser = { firstName: 'Demo', lastName: 'User', email: 'demo@augeinnovation.com' };
+  const currentUser = user ? {
+    firstName: user.firstName || 'User',
+    lastName: user.lastName || '',
+    email: user.emailAddresses?.[0]?.emailAddress || 'user@example.com'
+  } : fallbackUser;
+
+  // Determine user role (admin if email matches one of the two admin emails)
+  const isAdmin = currentUser.email === 'joelauge@gmail.com' || currentUser.email === 'pierre@augeinnovation.com';
+
+  const handleSignOut = async () => {
+    try {
+      if (signOut) {
+        await signOut();
+      }
+      // Always navigate to home page after sign out
+      navigate('/');
+    } catch (error) {
+      console.error('Error signing out:', error);
+      // Still navigate to home page even if sign out fails
+      navigate('/');
+    }
+  };
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-cyber-blue mx-auto mb-4"></div>
+          <p className="text-xl text-gray-300">Loading your dashboard...</p>
+        </div>
+      </div>
+    );
+  }
+
+  // Show approval pending page if user is not approved
+  if (!isApproved) {
+    return <ApprovalPending />;
+  }
+
+  const products = [
+    {
+      id: 'law-enforcement-targets',
+      title: 'Law Enforcement - Live Fire AI Targets',
+      price: 1000,
+      period: 'per day',
+      description: 'Advanced AI-powered targets designed specifically for law enforcement training scenarios',
+      features: [
+        'Real-time threat assessment',
+        'Adaptive response patterns',
+        'Safe live fire environment',
+        'Comprehensive training analytics',
+        'Modular target configurations'
+      ],
+      icon: <Target className="w-12 h-12" />,
+      category: 'law-enforcement',
+      color: 'from-cyber-blue to-cyber-purple'
+    },
+    {
+      id: 'military-targets',
+      title: 'Military - Live Fire AI Targets',
+      price: 1000,
+      period: 'per day',
+      description: 'Military-grade AI targets for advanced combat training and tactical scenarios',
+      features: [
+        'Heavy weapons simulation',
+        'Tactical movement patterns',
+        'Multi-threat scenarios',
+        'Combat readiness assessment',
+        'Advanced AI algorithms'
+      ],
+      icon: <Shield className="w-12 h-12" />,
+      category: 'military',
+      color: 'from-cyber-red to-cyber-orange'
+    },
+    {
+      id: 'armored-robots',
+      title: 'Armored Modular Indoor/Outdoor Robots',
+      price: 50000,
+      period: 'one-time',
+      description: 'Heavy-duty modular robots for both military and law enforcement applications',
+      features: [
+        'All-weather operation',
+        'Modular weapon systems',
+        'Advanced mobility',
+        'Remote control capabilities',
+        'Real-time video feed'
+      ],
+      icon: <Bot className="w-12 h-12" />,
+      category: 'robots',
+      color: 'from-cyber-green to-cyber-teal'
+    },
+    {
+      id: 'training-systems',
+      title: 'Next Generation Training Systems',
+      price: 25000,
+      period: 'one-time',
+      description: 'Comprehensive training systems with AI-driven scenarios and analytics',
+      features: [
+        'AI-powered scenarios',
+        'Performance analytics',
+        'Customizable training modules',
+        'Real-time feedback',
+        'Multi-user support'
+      ],
+      icon: <Zap className="w-12 h-12" />,
+      category: 'training',
+      color: 'from-cyber-yellow to-cyber-orange'
+    }
+  ];
+
+  return (
+    <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
+      {/* Header */}
+      <header className="bg-black/50 backdrop-blur-sm border-b border-cyber-blue/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center py-4">
+            <div className="flex items-center space-x-4">
+              <img 
+                src="/images/augeinnovation_logo_words512px.png" 
+                alt="Auge Innovation" 
+                className="h-8 w-auto"
+              />
+            </div>
+            <div className="flex items-center space-x-4">
+              <div className="flex items-center space-x-2 text-sm text-gray-300">
+                <User className="w-4 h-4" />
+                <span>{currentUser.firstName} {currentUser.lastName}</span>
+              </div>
+              {isAdmin && (
+                <button
+                  onClick={() => navigate('/admin')}
+                  className="px-4 py-2 bg-cyber-purple hover:bg-cyber-purple/80 text-white rounded-md transition-all duration-200 hover:scale-105"
+                >
+                  ADMIN PANEL
+                </button>
+              )}
+              <button
+                onClick={handleSignOut}
+                className="flex items-center space-x-2 px-4 py-2 bg-cyber-red hover:bg-cyber-red/80 text-white rounded-md transition-all duration-200 hover:scale-105"
+              >
+                <LogOut className="w-4 h-4" />
+                <span>SIGN OUT</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Welcome Section */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          className="text-center mb-12"
+        >
+          <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyber-blue to-cyber-purple bg-clip-text text-transparent">
+            Welcome, {currentUser.firstName}!
+          </h1>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            Access our advanced firearms training robots and AI-powered training solutions
+          </p>
+        </motion.div>
+
+        {/* Products Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
+          {products.map((product, index) => (
+            <motion.div
+              key={product.id}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              className="bg-gradient-to-br from-gray-800 to-gray-900 border border-cyber-blue/20 rounded-lg p-6 hover:border-cyber-blue/40 transition-all duration-300 hover:scale-105"
+            >
+              <div className="flex items-center justify-between mb-4">
+                <div className={`p-3 rounded-lg bg-gradient-to-r ${product.color}`}>
+                  {product.icon}
+                </div>
+                <div className="text-right">
+                  <div className="text-2xl font-bold text-cyber-blue">${product.price.toLocaleString()}</div>
+                  <div className="text-sm text-gray-400">{product.period}</div>
+                </div>
+              </div>
+              
+              <h3 className="text-xl font-bold mb-2 text-white">{product.title}</h3>
+              <p className="text-gray-300 mb-4">{product.description}</p>
+              
+              <ul className="space-y-2 mb-6">
+                {product.features.map((feature, featureIndex) => (
+                  <li key={featureIndex} className="flex items-center text-sm text-gray-300">
+                    <div className="w-2 h-2 bg-cyber-blue rounded-full mr-3"></div>
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+              
+              <button
+                onClick={() => navigate(`/product/${product.id}`)}
+                className="w-full bg-gradient-to-r from-cyber-blue to-cyber-purple hover:from-cyber-purple hover:to-cyber-blue text-white font-bold py-3 px-6 rounded-md transition-all duration-200 hover:scale-105 flex items-center justify-center space-x-2"
+              >
+                <span>VIEW DETAILS</span>
+                <ArrowRight className="w-4 h-4" />
+              </button>
+            </motion.div>
+          ))}
+        </div>
+      </main>
+    </div>
+  );
+};
+
+// Main Dashboard component that chooses between Clerk and Fallback
+const Dashboard = () => {
+  if (isClerkConfigured) {
+    return <ClerkDashboard />;
+  } else {
+    return <FallbackDashboard />;
+  }
 };
 
 export default Dashboard; 
