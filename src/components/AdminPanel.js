@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useUser, useAuth } from '@clerk/clerk-react';
-import { sendUserApprovalNotification, sendUserRejectionNotification } from '../services/emailService';
 import { 
   User, 
   LogOut, 
@@ -29,20 +28,13 @@ const AdminPanel = () => {
   const isAdmin = user?.emailAddresses?.[0]?.emailAddress === 'pierre@augeinnovation.com' || user?.emailAddresses?.[0]?.emailAddress === 'joelauge@gmail.com';
   const userEmail = user?.emailAddresses?.[0]?.emailAddress;
   
-  console.log("🔍 DEBUG: AdminPanel component loaded");
-  console.log("🔍 DEBUG: user object:", user);
-  console.log("🔍 DEBUG: userEmail:", userEmail);
-  console.log("🔍 DEBUG: isAdmin:", isAdmin);
-  console.log("🔍 DEBUG: user.emailAddresses:", user?.emailAddresses);
-  console.log("🔍 DEBUG: activeTab:", activeTab);
-  console.log("🔍 DEBUG: pendingUsers.length:", pendingUsers.length);
-  console.log("🔍 DEBUG: approvedUsers.length:", approvedUsers.length);
+
 
   // Fetch users from backend API
   useEffect(() => {
     const loadUsers = async () => {
       try {
-        console.log("AdminPanel: loadUsers called with userEmail:", userEmail);
+
         const users = await fetchUsers(userEmail);
         setPendingUsers(users.filter(u => u.approvalStatus === 'pending'));
         setApprovedUsers(users.filter(u => u.approvalStatus === 'approved'));
@@ -375,13 +367,7 @@ const AdminPanel = () => {
             </div>
           ) : (
             <div>
-              {/* Debug info - remove after testing */}
-              <div className="mb-4 p-4 bg-blue-900/50 rounded text-sm text-blue-300">
-                <p>Debug: Rendering APPROVED USERS section</p>
-                <p>filteredApprovedUsers.length: {filteredApprovedUsers.length}</p>
-                <p>approvedUsers.length: {approvedUsers.length}</p>
-                <p>activeTab: {activeTab}</p>
-              </div>
+
               <h3 className="text-xl font-cyber font-bold text-white mb-6">APPROVED USERS</h3>
               {filteredApprovedUsers.length === 0 ? (
                 <div className="text-center py-8">
@@ -390,10 +376,6 @@ const AdminPanel = () => {
                 </div>
               ) : (
                 <div className="space-y-4">
-                  {/* Debug info - remove after testing */}
-                  <div className="p-4 bg-green-900/50 rounded text-sm text-green-300">
-                    <p>Debug: About to map {filteredApprovedUsers.length} approved users</p>
-                  </div>
                   {filteredApprovedUsers.map((user, index) => (
                     <motion.div
                       key={user.id}
@@ -431,14 +413,6 @@ const AdminPanel = () => {
                             {user.approvedAt ? new Date(user.approvedAt).toLocaleDateString() : 'N/A'}
                           </p>
                         </div>
-                      </div>
-                      {/* Debug info - remove after testing */}
-                      <div className="mt-2 p-2 bg-gray-900/50 rounded text-xs text-titanium">
-                        <p>Debug: createdAt={JSON.stringify(user.createdAt)}, approvedAt={JSON.stringify(user.approvedAt)}</p>
-                      </div>
-                      {/* Debug info - remove after testing */}
-                      <div className="mt-2 p-2 bg-red-900/50 rounded text-xs text-red-300">
-                        <p>Debug: Delete button should be here for user {user.id}</p>
                       </div>
                       <div className="flex space-x-2 mt-4">
                         <button
