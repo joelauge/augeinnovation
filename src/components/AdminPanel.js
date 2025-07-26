@@ -13,7 +13,7 @@ import {
   Users, 
   Search
 } from 'lucide-react';
-import { fetchUsers, approveUser, rejectUser } from '../services/adminApi';
+import { fetchUsers, approveUser, rejectUser, deleteUser } from '../services/adminApi';
 
 const AdminPanel = () => {
   const { user } = useUser();
@@ -85,18 +85,33 @@ const AdminPanel = () => {
     }
   };
 
+  const handleDelete = async (userId) => {
+    if (window.confirm('Are you sure you want to delete this user? This action cannot be undone.')) {
+      try {
+        await deleteUser(userId, userEmail);
+        // Refresh the user list
+        const updatedUsers = await fetchUsers(userEmail);
+        setPendingUsers(updatedUsers.filter(u => (u.approvalStatus || 'pending') === 'pending'));
+        setApprovedUsers(updatedUsers.filter(u => (u.approvalStatus || 'pending') === 'approved'));
+      } catch (err) {
+        console.error('Failed to delete user:', err);
+        alert('Failed to delete user. Please try again.');
+      }
+    }
+  };
+
   const filteredPendingUsers = pendingUsers.filter(user =>
-    user.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.organization.toLowerCase().includes(searchTerm.toLowerCase())
+    (user.firstName?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
+    (user.lastName?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
+    (user.email?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
+    (user.organization?.toLowerCase() || '').includes(searchTerm.toLowerCase())
   );
 
   const filteredApprovedUsers = approvedUsers.filter(user =>
-    user.firstName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.lastName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.organization.toLowerCase().includes(searchTerm.toLowerCase())
+    (user.firstName?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
+    (user.lastName?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
+    (user.email?.toLowerCase() || '').includes(searchTerm.toLowerCase()) ||
+    (user.organization?.toLowerCase() || '').includes(searchTerm.toLowerCase())
   );
 
   if (!isAdmin) {
@@ -401,6 +416,14 @@ const AdminPanel = () => {
                             {new Date(user.approvedAt).toLocaleDateString()}
                           </p>
                         </div>
+                      </div>
+                      <div className="flex space-x-2 mt-4">
+                        <button
+                          onClick={() => handleDelete(user.id)}
+                          className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 transition-colors"
+                        >
+                          Delete
+                        </button>
                       </div>
                     </motion.div>
                   ))}

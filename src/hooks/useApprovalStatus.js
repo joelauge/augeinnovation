@@ -1,70 +1,39 @@
 import { useState, useEffect } from 'react';
 import { useUser } from '@clerk/clerk-react';
-import { sendUserSignupNotification } from '../services/emailService';
+// import { sendUserSignupNotification } from '../services/emailService';
 
-const useApprovalStatus = () => {
+export const useApprovalStatus = () => {
   const { user } = useUser();
+  const [approvalStatus, setApprovalStatus] = useState('pending');
   const [isApproved, setIsApproved] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
-  const [approvalStatus, setApprovalStatus] = useState('pending');
-  const [hasNotified, setHasNotified] = useState(false);
 
   useEffect(() => {
     const checkApprovalStatus = async () => {
-      if (!user) {
-        setIsLoading(false);
-        return;
+      if (!user) return;
+
+      const userEmail = user.emailAddresses?.[0]?.emailAddress;
+      console.log('🔍 DEBUG: useApprovalStatus - userEmail:', userEmail);
+
+      // Only auto-approve if user is one of the two admins
+      let status;
+      let approved;
+      if (userEmail === 'pierre@augeinnovation.com' || userEmail === 'joelauge@gmail.com') {
+        status = 'approved';
+        approved = true;
+      } else {
+        status = 'pending';
+        approved = false;
       }
+      setApprovalStatus(status);
+      setIsApproved(approved);
+      setIsLoading(false);
 
-      try {
-        // Send signup notification to admins if not already sent
-        if (!hasNotified) {
-          console.log('Sending signup notification for new user:', user.emailAddresses?.[0]?.emailAddress);
-          const notificationResult = await sendUserSignupNotification(user);
-          if (notificationResult.success) {
-            console.log('Signup notification sent successfully');
-          } else {
-            console.warn('Failed to send signup notification:', notificationResult.error);
-          }
-          setHasNotified(true);
-        }
-
-        // In production, this would make an API call to check approval status
-        // For now, we'll use mock logic based on email patterns
-        
-        const userEmail = user.emailAddresses?.[0]?.emailAddress;
-        
-        if (!userEmail) {
-          setApprovalStatus('pending');
-          setIsApproved(false);
-          setIsLoading(false);
-          return;
-        }
-
-        // Only auto-approve if user is one of the two admins
-        let status;
-        let approved;
-        if (userEmail === 'pierre@augeinnovation.com' || userEmail === 'joelauge@gmail.com') {
-          status = 'approved';
-          approved = true;
-        } else {
-          status = 'pending';
-          approved = false;
-        }
-        setApprovalStatus(status);
-        setIsApproved(approved);
-        setIsLoading(false);
-
-      } catch (error) {
-        console.error('Error checking approval status:', error);
-        setApprovalStatus('pending');
-        setIsApproved(false);
-        setIsLoading(false);
-      }
+      // Email notifications disabled for now
     };
 
     checkApprovalStatus();
-  }, [user, hasNotified]);
+  }, [user]);
 
   const approveUser = async (userId) => {
     // In production, this would make an API call to approve the user
@@ -95,6 +64,4 @@ const useApprovalStatus = () => {
     rejectUser,
     user
   };
-};
-
-export default useApprovalStatus; 
+}; 

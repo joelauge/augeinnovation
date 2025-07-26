@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { useUser, useAuth } from '@clerk/clerk-react';
-import useApprovalStatus from '../hooks/useApprovalStatus';
+import { useApprovalStatus } from '../hooks/useApprovalStatus';
 import ApprovalPending from './ApprovalPending';
 import { 
   Target, 
