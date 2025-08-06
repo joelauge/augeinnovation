@@ -19,7 +19,13 @@ export default async function handler(req, res) {
 
   // Admin authentication (simple header check)
   const adminEmail = req.headers['x-admin-email'];
+  console.log('Backend: Received adminEmail header:', adminEmail);
+  console.log('Backend: adminEmail type:', typeof adminEmail);
+  console.log('Backend: adminEmail length:', adminEmail?.length);
+  console.log('Backend: All headers:', req.headers);
+  
   if (!ADMIN_EMAILS.includes(adminEmail)) {
+    console.log('Backend: Access denied - email not in admin list:', adminEmail);
     return res.status(403).json({ error: 'Forbidden: Admins only' });
   }
 

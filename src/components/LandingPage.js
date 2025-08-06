@@ -50,10 +50,11 @@ const AnimatedText = ({ text, className, animationProps = {} }) => {
 };
 
 const LandingPage = () => {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  // Always call hooks (React rule), but handle null cases
   const { isSignedIn } = useUser();
   const { signOut } = useAuth();
   const navigate = useNavigate();
+  const [currentSlide, setCurrentSlide] = useState(0);
 
   // Check if Clerk is properly configured
   const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
