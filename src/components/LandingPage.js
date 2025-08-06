@@ -90,7 +90,7 @@ const LandingPage = () => {
     {
       icon: <Zap className="w-8 h-8" />,
       title: "Live Fire Training",
-      description: "Safe, controlled environments for realistic combat simulation"
+      description: "Safe, hyper-realistic real-time combat simulation"
     },
     {
       icon: <Bot className="w-8 h-8" />,

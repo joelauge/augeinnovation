@@ -37,39 +37,37 @@ const ProductPage = () => {
       price: 1000,
       period: 'per day',
       bgVideo: process.env.PUBLIC_URL + "/images/robotinside.webm",
-      description: 'Advanced AI-powered targets designed specifically for law enforcement training scenarios. These cutting-edge systems provide realistic threat simulation while maintaining the highest safety standards.',
+      description: 'Advanced AI-powered targets designed specifically for law enforcement training scenarios. These cutting-edge systems provide hyper realistic threat simulation while maintaining the highest safety standards.',
       longDescription: `Our Law Enforcement AI Targets represent the pinnacle of training technology, designed specifically for police departments and law enforcement agencies. These systems combine advanced robotics with sophisticated AI algorithms to create the most realistic training scenarios possible.
 
-The targets feature real-time threat assessment capabilities, allowing them to respond dynamically to trainee actions. They can simulate various threat levels, from passive suspects to active shooters, providing officers with comprehensive training experiences that prepare them for real-world situations.
+The targets feature real-time threat assessment capabilities, allowing them to respond dynamically to trainee actions. They can simulate various threat levels, whether they be Doves to Badgers or HVTs, providing officers with comprehensive training experiences that prepare them for real-world situations.
 
-Each system includes comprehensive analytics and reporting features, allowing training supervisors to track performance metrics and identify areas for improvement. The modular design allows for easy customization to meet specific training requirements.`,
+Each system includes comprehensive analytics and reporting features, providing qualitative and quantitative performance metrics to identify areas for improvement. The modular design allows for easy customization to meet specific training requirements.`,
       features: [
         'Real-time threat assessment and response',
         'Adaptive AI algorithms that learn from training sessions',
-        'Safe live fire environment with bullet-resistant materials',
-        'Comprehensive training analytics and performance tracking',
+        'Safe live fire environment with non-richocet forming materials',
         'Modular target configurations for various scenarios',
         'Weather-resistant outdoor operation capability',
         'Remote control and monitoring systems',
-        'Integration with existing training infrastructure'
+        'Infrastructure agnostic',
+        'Sandboxed data environment'
       ],
       specifications: [
         { label: 'Target Response Time', value: '< 50ms' },
-        { label: 'Operating Temperature', value: '-20°C to +50°C' },
-        { label: 'Power Requirements', value: '110V/220V AC or Battery' },
-        { label: 'Communication Range', value: 'Up to 500m' },
-        { label: 'Target Movement Speed', value: '0-15 m/s' },
-        { label: 'Weight', value: '45 kg' },
-        { label: 'Dimensions', value: '120cm x 80cm x 60cm' },
-        { label: 'Warranty', value: '2 years comprehensive' }
+        { label: 'Operating Temperature', value: '-40°C to +50°C' },
+        { label: 'Power Requirements', value: 'Battery Operated' },
+        { label: 'Communication Range', value: 'Up to 5000m' },
+        { label: 'Dismounted Target Movement Speed', value: '0-20 Km/h' },
+        { label: 'Vehicle Target Movement Speed', value: '0-50 Km/h' },
+        { label: 'Ballistic Protection', value: 'Resistance to all Law Enforcement Ammunition' },
       ],
       icon: <Target className="w-16 h-16" />,
       category: 'law-enforcement',
       color: 'from-cyber-blue to-cyber-purple',
       images: ['target1.jpg', 'target2.jpg', 'target3.jpg'],
       reviews: [
-        { rating: 5, comment: 'Revolutionary training system that significantly improved our department\'s readiness.', author: 'Const. Johnson, Toronto Police' },
-        { rating: 5, comment: 'The AI capabilities are incredible. Our officers are more confident and prepared.', author: 'Sgt Dufonce, Sureté du Quebec' }
+        { rating: 5, comment: 'This shit is a game changer.', author: 'SSgt, Shangi, TPS' },
       ]
     },
     'military-targets': {
@@ -83,34 +81,30 @@ Each system includes comprehensive analytics and reporting features, allowing tr
 
 The targets feature advanced tactical movement patterns that simulate real combat situations, including cover and concealment tactics, flanking maneuvers, and coordinated attacks. The AI system can coordinate multiple targets to create complex, multi-threat scenarios that test tactical decision-making and combat effectiveness.
 
-Built to military specifications, these targets can operate in extreme weather conditions, from desert heat to arctic cold. They feature heavy-duty construction and can withstand significant environmental stress while maintaining operational reliability.`,
+Built to exceed military specifications, these targets can operate in extreme weather conditions, from desert heat to arctic cold. They feature heavy-duty construction and can withstand significant environmental stress while maintaining operational reliability.`,
       features: [
         'Heavy weapons simulation and resistance',
         'Advanced tactical movement patterns',
         'Multi-threat scenario coordination',
-        'Combat readiness assessment algorithms',
         'Extreme weather operation capability',
         'Military-grade durability and reliability',
         'Advanced AI threat simulation',
-        'Comprehensive after-action reporting'
+        'Advanced 3D hit detection and tracking'
       ],
       specifications: [
-        { label: 'Target Response Time', value: '< 30ms' },
-        { label: 'Operating Temperature', value: '-40°C to +60°C' },
-        { label: 'Power Requirements', value: '24V DC or Solar' },
-        { label: 'Communication Range', value: 'Up to 1km' },
-        { label: 'Target Movement Speed', value: '0-20 m/s' },
-        { label: 'Weight', value: '75 kg' },
-        { label: 'Dimensions', value: '150cm x 100cm x 80cm' },
-        { label: 'Warranty', value: '3 years military grade' }
+        { label: 'Target Response Time', value: '< 50ms' },
+        { label: 'Operating Temperature', value: '-40°C to +50°C' },
+        { label: 'Power Requirements', value: 'Battery Operated' },
+        { label: 'Communication Range', value: 'Up to 5000m' },
+        { label: 'Dismounted Target Movement Speed', value: '0-20 Km/h' },
+        { label: 'Vehicle Target Movement Speed', value: '0-50 Km/h' },
+        { label: 'Ballistic Protection', value: 'Resistance to all Small Arms Ammunition inclusive of 50BMG AP.'  },
       ],
       icon: <Shield className="w-16 h-16" />,
       category: 'military',
       color: 'from-cyber-red to-cyber-orange',
       images: ['military1.jpg', 'military2.jpg', 'military3.jpg'],
       reviews: [
-        { rating: 5, comment: 'Exceptional training system that has improved our unit\'s combat effectiveness.', author: 'Col. Martinez, US Army' },
-        { rating: 5, comment: 'The most advanced training technology we\'ve ever used.', author: 'Maj. Thompson, USMC' }
       ]
     },
     'armored-robots': {
@@ -122,12 +116,12 @@ Built to military specifications, these targets can operate in extreme weather c
       description: 'Heavy-duty modular robots for both military and law enforcement applications. Versatile platforms designed for multiple operational environments.',
       longDescription: `Our Armored Modular Robots represent a new generation of versatile robotic platforms designed for both military and law enforcement applications. These systems feature a modular design that allows for rapid reconfiguration to meet specific mission requirements.
 
-The robots are equipped with advanced mobility systems that enable operation in diverse environments, from urban settings to rough terrain. They feature modular weapon systems that can be quickly swapped to match mission requirements, from less-lethal options to heavy weapons platforms.
+The robots are equipped with advanced mobility systems that enable operation in diverse environments, from urban settings to rough terrain. 
 
 Built with military-grade armor and electronics, these robots can operate in extreme conditions while providing reliable performance. The modular design allows for easy maintenance and upgrades, ensuring long-term operational capability.`,
       features: [
         'All-weather operation capability',
-        'Modular weapon system integration',
+        'Modular platform for various mission requirements',
         'Advanced mobility and navigation',
         'Remote control and autonomous operation',
         'Customizable configurations',
@@ -136,13 +130,12 @@ Built with military-grade armor and electronics, these robots can operate in ext
         'Real-time video and sensor feeds'
       ],
       specifications: [
-        { label: 'Maximum Speed', value: '25 km/h' },
-        { label: 'Operating Range', value: 'Up to 10km' },
-        { label: 'Payload Capacity', value: '150 kg' },
+        { label: 'Maximum Speed', value: '20 km/h' },
+        { label: 'Operating Range', value: 'Up to 100km' },
+        { label: 'Payload Capacity', value: '100 kg' },
         { label: 'Battery Life', value: '8-12 hours' },
-        { label: 'Weight', value: '450 kg' },
-        { label: 'Dimensions', value: '200cm x 120cm x 100cm' },
-        { label: 'Armor Rating', value: 'Level III+ protection' },
+        { label: 'Weight', value: 'Up to 1000 kg' },
+        { label: 'Armor Rating', value: 'Classified' },
         { label: 'Warranty', value: '5 years comprehensive' }
       ],
       icon: <Bot className="w-16 h-16" />,
@@ -165,7 +158,7 @@ Built with military-grade armor and electronics, these robots can operate in ext
 
 These robots are equipped with sophisticated AI systems that enable autonomous operation in complex combat scenarios. They feature advanced sensor suites that provide comprehensive situational awareness, allowing for effective operation in challenging environments.
 
-The heavy weapons resistance is achieved through a combination of advanced materials science and innovative design. The robots feature multiple layers of protection, including reactive armor and composite materials, while maintaining operational mobility and effectiveness.`,
+The heavy weapons resistance is achieved through a combination of advanced materials science and innovative design. The robots feature multiple layers of proprietary armor, inert composites and structural materials.`,
       features: [
         'Heavy weapons resistance and protection',
         'Advanced armor systems and materials',
@@ -177,22 +170,18 @@ The heavy weapons resistance is achieved through a combination of advanced mater
         'Modular mission-specific configurations'
       ],
       specifications: [
-        { label: 'Maximum Speed', value: '35 km/h' },
-        { label: 'Operating Range', value: 'Up to 25km' },
-        { label: 'Payload Capacity', value: '300 kg' },
+        { label: 'Maximum Speed', value: '50 km/h' },
+        { label: 'Operating Range', value: 'Up to 100km' },
         { label: 'Battery Life', value: '16-24 hours' },
-        { label: 'Weight', value: '1200 kg' },
-        { label: 'Dimensions', value: '300cm x 180cm x 150cm' },
-        { label: 'Armor Rating', value: 'Level IV+ protection' },
-        { label: 'Warranty', value: '10 years comprehensive' }
+        { label: 'Weight', value: '10000 kg' },
+        { label: 'Armor Rating', value: 'Classified' },
+        { label: 'Warranty', value: '5 years comprehensive' }
       ],
       icon: <Zap className="w-16 h-16" />,
       category: 'robots',
       color: 'from-cyber-purple to-cyber-red',
       images: ['heavy1.jpg', 'heavy2.jpg', 'heavy3.jpg'],
       reviews: [
-        { rating: 5, comment: 'The most advanced robotic system we\'ve ever deployed. Exceptional performance.', author: 'Gen. Anderson, Joint Chiefs' },
-        { rating: 5, comment: 'Revolutionary technology that has changed how we approach combat operations.', author: 'Adm. Chen, Naval Operations' }
       ]
     }
   };
