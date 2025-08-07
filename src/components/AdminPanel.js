@@ -411,9 +411,15 @@ const ClerkAdminPanel = () => {
 
 // Main AdminPanel component that chooses between Clerk and Fallback
 const AdminPanel = () => {
+  console.log('🔍 DEBUG: AdminPanel component selection');
+  console.log('🔍 DEBUG: isClerkConfigured:', isClerkConfigured);
+  console.log('🔍 DEBUG: clerkPubKey:', clerkPubKey);
+  
   if (isClerkConfigured) {
+    console.log('🔍 DEBUG: Using ClerkAdminPanel');
     return <ClerkAdminPanel />;
   } else {
+    console.log('🔍 DEBUG: Using FallbackAdminPanel');
     return <FallbackAdminPanel />;
   }
 };
