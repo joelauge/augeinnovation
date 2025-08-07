@@ -106,20 +106,37 @@ const ClerkAdminPanel = () => {
   const loadUsers = async () => {
     try {
       console.log('AdminPanel: loadUsers called with userEmail:', userEmail);
+      console.log('AdminPanel: isAdmin status:', isAdmin);
+      
       const users = await fetchUsers(userEmail);
       console.log('🔍 DEBUG: Fetched users:', users);
+      console.log('🔍 DEBUG: Number of users fetched:', users?.length || 0);
+      
+      if (!users || users.length === 0) {
+        console.log('🔍 DEBUG: No users returned from API');
+        setPendingUsers([]);
+        setApprovedUsers([]);
+        return;
+      }
       
       const pending = users.filter(user => 
-        user.public_metadata?.approvalStatus === 'pending'
+        user.approvalStatus === 'pending'
       );
       const approved = users.filter(user => 
-        user.public_metadata?.approvalStatus === 'approved'
+        user.approvalStatus === 'approved'
       );
+      
+      console.log('🔍 DEBUG: Pending users:', pending);
+      console.log('🔍 DEBUG: Approved users:', approved);
       
       setPendingUsers(pending);
       setApprovedUsers(approved);
     } catch (error) {
       console.error('Failed to fetch users:', error);
+      console.error('Error details:', error.message);
+      // Set empty arrays on error
+      setPendingUsers([]);
+      setApprovedUsers([]);
     }
   };
 
