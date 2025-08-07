@@ -12,6 +12,23 @@ import {
 } from 'lucide-react';
 import Footer from './Footer';
 
+// Custom hook to safely handle Clerk authentication
+const useClerkAuth = () => {
+  const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
+  const isClerkConfigured = clerkPubKey && clerkPubKey !== 'pk_test_your_clerk_key_here';
+
+  // Always call hooks to satisfy React rules
+  const user = useUser();
+  const auth = useAuth();
+
+  // Return safe values based on configuration
+  return {
+    isSignedIn: isClerkConfigured ? user.isSignedIn : false,
+    signOut: isClerkConfigured ? auth.signOut : null,
+    isClerkConfigured
+  };
+};
+
 // Animated Text Component for individual character hover effects
 const AnimatedText = ({ text, className, animationProps = {} }) => {
   const words = text.split(' ');
@@ -50,15 +67,9 @@ const AnimatedText = ({ text, className, animationProps = {} }) => {
 };
 
 const LandingPage = () => {
-  // Always call hooks (React rule), but handle null cases
-  const { isSignedIn } = useUser();
-  const { signOut } = useAuth();
   const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
-
-  // Check if Clerk is properly configured
-  const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
-  const isClerkConfigured = clerkPubKey && clerkPubKey !== 'pk_test_your_clerk_key_here';
+  const { isSignedIn, signOut, isClerkConfigured } = useClerkAuth();
 
   // Use Clerk authentication if configured, otherwise fallback to demo mode
   const isAuthenticated = isClerkConfigured ? isSignedIn : false;
