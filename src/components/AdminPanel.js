@@ -60,21 +60,7 @@ const FallbackAdminPanel = () => {
           <h1 className="text-4xl md:text-6xl font-bold mb-4 bg-gradient-to-r from-cyber-blue to-cyber-purple bg-clip-text text-transparent">
             Admin Panel
           </h1>
-          <div className="mt-6 p-6 bg-cyber-blue/10 border border-cyber-blue/20 rounded-lg max-w-2xl mx-auto">
-            <p className="text-cyber-blue text-lg mb-4">
-              ⚠️ Demo Mode: Clerk authentication is not configured
-            </p>
-            <p className="text-gray-300 mb-4">
-              The Admin Panel requires Clerk authentication to function properly. 
-              Please contact support to configure authentication for full access.
-            </p>
-            <button
-              onClick={() => navigate('/dashboard')}
-              className="px-6 py-3 bg-cyber-blue hover:bg-cyber-blue/80 text-white rounded-md transition-all duration-200 hover:scale-105"
-            >
-              Return to Dashboard
-            </button>
-          </div>
+
         </motion.div>
       </main>
     </div>

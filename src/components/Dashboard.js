@@ -139,11 +139,7 @@ const FallbackDashboard = () => {
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
             Advanced Firearms Training Robots and AI-Powered Training Solutions
           </p>
-          <div className="mt-6 p-4 bg-cyber-blue/10 border border-cyber-blue/20 rounded-lg">
-            <p className="text-cyber-blue">
-              ⚠️ Demo Mode: Clerk authentication is not configured. Please contact support for full access.
-            </p>
-          </div>
+
         </motion.div>
 
         {/* Products Grid */}
