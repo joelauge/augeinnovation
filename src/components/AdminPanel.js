@@ -210,13 +210,13 @@ const ClerkAdminPanel = () => {
   }
 
   const filteredPendingUsers = pendingUsers.filter(user => 
-    user.emailAddresses?.[0]?.emailAddress?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.lastName?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const filteredApprovedUsers = approvedUsers.filter(user => 
-    user.emailAddresses?.[0]?.emailAddress?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    user.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
     user.lastName?.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -327,13 +327,19 @@ const ClerkAdminPanel = () => {
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
                         <h3 className="text-xl font-bold text-white mb-2">
-                          {user.firstName} {user.lastName}
+                          {user.firstName || user.lastName ? 
+                            `${user.firstName || ''} ${user.lastName || ''}`.trim() : 
+                            'No Name Provided'
+                          }
                         </h3>
                         <p className="text-cyber-blue mb-2">
-                          {user.emailAddresses?.[0]?.emailAddress}
+                          {user.email}
                         </p>
                         <p className="text-gray-400 text-sm">
-                          Registration Date: {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}
+                          User ID: {user.id}
+                        </p>
+                        <p className="text-gray-400 text-sm">
+                          Status: {user.approvalStatus}
                         </p>
                       </div>
                       <div className="flex space-x-2">
@@ -376,7 +382,10 @@ const ClerkAdminPanel = () => {
                     <div className="flex justify-between items-start">
                       <div className="flex-1">
                         <h3 className="text-xl font-bold text-white mb-2">
-                          {user.firstName} {user.lastName}
+                          {user.firstName || user.lastName ? 
+                            `${user.firstName || ''} ${user.lastName || ''}`.trim() : 
+                            'No Name Provided'
+                          }
                         </h3>
                         <p className="text-cyber-blue mb-2">
                           {user.emailAddresses?.[0]?.emailAddress}
