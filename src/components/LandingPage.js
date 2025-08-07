@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useUser, useAuth } from '@clerk/clerk-react';
 import { 
   Shield, 
   Target, 
@@ -12,21 +11,10 @@ import {
 } from 'lucide-react';
 import Footer from './Footer';
 
-// Custom hook to safely handle Clerk authentication
-const useClerkAuth = () => {
+// Check if Clerk is properly configured
+const isClerkConfigured = () => {
   const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
-  const isClerkConfigured = clerkPubKey && clerkPubKey !== 'pk_test_your_clerk_key_here';
-
-  // Always call hooks to satisfy React rules
-  const user = useUser();
-  const auth = useAuth();
-
-  // Return safe values based on configuration
-  return {
-    isSignedIn: isClerkConfigured ? user.isSignedIn : false,
-    signOut: isClerkConfigured ? auth.signOut : null,
-    isClerkConfigured
-  };
+  return clerkPubKey && clerkPubKey !== 'pk_test_your_clerk_key_here';
 };
 
 // Animated Text Component for individual character hover effects
@@ -66,26 +54,18 @@ const AnimatedText = ({ text, className, animationProps = {} }) => {
   );
 };
 
+// Main LandingPage component without Clerk dependencies
 const LandingPage = () => {
   const navigate = useNavigate();
   const [currentSlide, setCurrentSlide] = useState(0);
-  const { isSignedIn, signOut, isClerkConfigured } = useClerkAuth();
-
-  // Use Clerk authentication if configured, otherwise fallback to demo mode
-  const isAuthenticated = isClerkConfigured ? isSignedIn : false;
+  
+  // Default authentication state (no Clerk)
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   const handleSignOut = async () => {
-    try {
-      if (isClerkConfigured && signOut) {
-        await signOut();
-      }
-      // Always navigate to home page after sign out
-      navigate('/');
-    } catch (error) {
-      console.error('Error signing out:', error);
-      // Still navigate to home page even if sign out fails
-      navigate('/');
-    }
+    // Simple sign out without Clerk
+    setIsAuthenticated(false);
+    navigate('/');
   };
 
   const features = [
