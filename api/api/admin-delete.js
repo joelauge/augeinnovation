@@ -5,7 +5,15 @@ const CLERK_SECRET_KEY = process.env.CLERK_SECRET_KEY;
 
 export default async function handler(req, res) {
   // Set CORS headers
-  res.setHeader('Access-Control-Allow-Origin', 'https://augeinnovation.com');
+  const allowedOrigins = [
+    'https://augeinnovation.com',
+    'https://www.augeinnovation.com',
+    'https://joelauge.github.io'
+  ];
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
   res.setHeader('Access-Control-Allow-Methods', 'DELETE,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-admin-email');
   

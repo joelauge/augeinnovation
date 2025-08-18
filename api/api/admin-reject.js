@@ -2,11 +2,19 @@
 import fetch from 'node-fetch';
 
 const CLERK_SECRET_KEY = process.env.CLERK_SECRET_KEY;
-const CLERK_API_URL = 'https://api.clerk.dev/v1/users';
+const CLERK_API_URL = 'https://api.clerk.com/v1/users';
 const ADMIN_EMAILS = ['joelauge@gmail.com', 'pierre@augeinnovation.com'];
 
 export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', 'https://augeinnovation.com');
+  const allowedOrigins = [
+    'https://augeinnovation.com',
+    'https://www.augeinnovation.com',
+    'https://joelauge.github.io'
+  ];
+  const origin = req.headers.origin;
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
   res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, x-admin-email');
   if (req.method === 'OPTIONS') {
@@ -36,7 +44,10 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        public_metadata: { approvalStatus: 'rejected' }
+        public_metadata: { 
+          approvalStatus: 'rejected',
+          approvedAt: null
+        }
       })
     });
     if (!response.ok) {

@@ -128,6 +128,23 @@ const ClerkAdminPanel = () => {
       
       console.log('🔍 DEBUG: Pending users:', pending);
       console.log('🔍 DEBUG: Approved users:', approved);
+      console.log('🔍 DEBUG: Approved users count:', approved.length);
+      
+      // Debug each approved user individually
+      approved.forEach((user, index) => {
+        console.log(`🔍 DEBUG: Approved user ${index + 1}:`, {
+          id: user.id,
+          email: user.email,
+          emailAddresses: user.emailAddresses,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          approvalStatus: user.approvalStatus,
+          displayName: user.firstName || user.lastName ? 
+            `${user.firstName || ''} ${user.lastName || ''}`.trim() : 
+            'No Name Provided',
+          fullObject: user
+        });
+      });
       
       setPendingUsers(pending);
       setApprovedUsers(approved);
@@ -215,11 +232,16 @@ const ClerkAdminPanel = () => {
     user.lastName?.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
-  const filteredApprovedUsers = approvedUsers.filter(user => 
-    user.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    user.lastName?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredApprovedUsers = approvedUsers.filter(user => {
+    const matchesSearch = user.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.firstName?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      user.lastName?.toLowerCase().includes(searchTerm.toLowerCase());
+    
+    // Debug each user's filtering
+    console.log(`🔍 DEBUG: User "${user.firstName || ''} ${user.lastName || ''}" (${user.email}) - Search term: "${searchTerm}" - Matches: ${matchesSearch}`);
+    
+    return matchesSearch;
+  });
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-black text-white">
@@ -304,8 +326,30 @@ const ClerkAdminPanel = () => {
           {/* Debug Information */}
           <div className="mb-6 p-4 bg-gray-800 border border-gray-600 rounded-lg">
             <p className="text-sm text-gray-300">
-              <strong>Debug Info:</strong> Active Tab: {activeTab}, Pending: {pendingUsers.length}, Approved: {approvedUsers.length}
+              <strong>Debug Info:</strong> Active Tab: {activeTab}, Pending: {pendingUsers.length}, Approved: {approvedUsers.length}, Filtered Approved: {filteredApprovedUsers.length}, Search Term: "{searchTerm}"
             </p>
+            <p className="text-sm text-gray-300 mt-2">
+              <strong>All Approved Users:</strong> {approvedUsers.map(u => {
+                const name = `${u.firstName || ''} ${u.lastName || ''}`.trim();
+                const email = u.email || u.emailAddresses?.[0]?.emailAddress;
+                return name || email || 'No Name/Email';
+              }).join(', ')}
+            </p>
+            <p className="text-sm text-gray-300 mt-1">
+              <strong>Filtered Approved Users:</strong> {filteredApprovedUsers.map(u => {
+                const name = `${u.firstName || ''} ${u.lastName || ''}`.trim();
+                const email = u.email || u.emailAddresses?.[0]?.emailAddress;
+                return name || email || 'No Name/Email';
+              }).join(', ')}
+            </p>
+            <p className="text-sm text-gray-300 mt-1">
+              <strong>User Details:</strong>
+            </p>
+            {approvedUsers.map((u, index) => (
+              <p key={index} className="text-xs text-gray-400 ml-2">
+                {index + 1}. {u.firstName || ''} {u.lastName || ''} ({u.email || u.emailAddresses?.[0]?.emailAddress || 'No Email'}) - Created: {u.createdAt ? new Date(u.createdAt).toLocaleDateString() : 'N/A'} - Approved: {u.public_metadata?.approvedAt ? new Date(u.public_metadata.approvedAt).toLocaleDateString() : 'N/A'}
+              </p>
+            ))}
           </div>
 
           {/* Pending Users Tab */}
@@ -384,17 +428,20 @@ const ClerkAdminPanel = () => {
                         <h3 className="text-xl font-bold text-white mb-2">
                           {user.firstName || user.lastName ? 
                             `${user.firstName || ''} ${user.lastName || ''}`.trim() : 
-                            'No Name Provided'
+                            (user.email || user.emailAddresses?.[0]?.emailAddress || 'No Name/Email Provided')
                           }
                         </h3>
                         <p className="text-cyber-blue mb-2">
-                          {user.emailAddresses?.[0]?.emailAddress}
+                          {user.email || user.emailAddresses?.[0]?.emailAddress || 'No Email'}
                         </p>
                         <p className="text-gray-400 text-sm">
                           Registration Date: {user.createdAt ? new Date(user.createdAt).toLocaleDateString() : 'N/A'}
                         </p>
                         <p className="text-gray-400 text-sm">
                           Approved Date: {user.public_metadata?.approvedAt ? new Date(user.public_metadata.approvedAt).toLocaleDateString() : 'N/A'}
+                        </p>
+                        <p className="text-gray-400 text-sm">
+                          User ID: {user.id}
                         </p>
                       </div>
                       <div className="flex space-x-2">
