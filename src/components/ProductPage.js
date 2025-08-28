@@ -66,7 +66,7 @@ Each system includes comprehensive analytics and reporting features, providing q
       color: 'from-cyber-blue to-cyber-purple',
       images: ['target1.jpg', 'target2.jpg', 'target3.jpg'],
       reviews: [
-        { rating: 5, comment: 'The data we collected identified precisely what structural deficiencies existed in our building infrastructure. The investment we made in Augé Innovation Inc. provided us the data we needed to make targeted investments to upgrade our building infrastructure.', author: 'CEO, Swift Rail' },
+        { rating: 5, comment: 'The data we collected identified precisely what structural deficiencies existed in our building infrastructure. The investment we made in Augé Innovation Inc. informed us of precisely what we needed to make targeted investments to upgrade that infrastructure.', author: 'CEO, Swift Rail' },
       ]
     },
     'military-targets': {
