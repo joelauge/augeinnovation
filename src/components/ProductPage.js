@@ -31,43 +31,42 @@ const ProductPage = () => {
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
 
   const products = {
-    'law-enforcement-targets': {
-      id: 'law-enforcement-targets',
-      title: 'Law Enforcement - Live Fire AI Targets',
+    'Industrial Scanning and Inspection': {
+      id: '3D Multispectral Scanning',
+      title: 'Industrial Scanning and Inspection',
       price: 1000,
       period: 'per day',
       bgVideo: process.env.PUBLIC_URL + "/images/robotinside.webm",
-      description: 'Advanced AI-powered targets designed specifically for law enforcement training scenarios. These cutting-edge systems provide hyper realistic threat simulation while maintaining the highest safety standards.',
-      longDescription: `Our Law Enforcement AI Targets represent the pinnacle of training technology, designed specifically for police departments and law enforcement agencies. These systems combine advanced robotics with sophisticated AI algorithms to create the most realistic training scenarios possible.
+      description: 'Advanced AI-powered robots designed specifically for high precision Multispectral Industrial scanning of buildings and the environment. These cutting-edge systems provide real-time inspection data of industrial environments, machinery, buildings, rail, mines, ships, or anything that requires detailed non destructive inspection data.',
+      longDescription: `Our AI Inspection Robots represent the pinnacle of inspection technology. These systems combine advanced robotics with sophisticated AI algorithms to create the most detailed ground-truth datasets.
 
-The targets feature real-time threat assessment capabilities, allowing them to respond dynamically to trainee actions. They can simulate various threat levels, whether they be Doves to Badgers or HVTs, providing officers with comprehensive training experiences that prepare them for real-world situations.
-
-Each system includes comprehensive analytics and reporting features, providing qualitative and quantitative performance metrics to identify areas for improvement. The modular design allows for easy customization to meet specific training requirements.`,
+Each system includes comprehensive analytics and reporting features, providing qualitative and quantitative performance metrics from the system itself. The modular design allows for easy customization to meet specific requirements.`,
       features: [
-        'Real-time threat assessment and response',
-        'Adaptive AI algorithms that learn from training sessions',
-        'Safe live fire environment with non-richocet forming materials',
-        'Modular target configurations for various scenarios',
-        'Weather-resistant outdoor operation capability',
-        'Remote control and monitoring systems',
+        'Real-time metrics',
+        'Adaptive scanning algorithms',
+        'Human Safety first design',
+        'Non Sparking Construction',
+        'Modular Payload Capacity',
+        'Extreme Weather-tolerant -50 to +50C',
+        'Radiologically Hardened',
+        'Chemically Resistant',
+        'Remote control and Autonomous Operation',
         'Infrastructure agnostic',
-        'Sandboxed data environment'
+        'Sandboxed and safe data environment'
       ],
       specifications: [
-        { label: 'Target Response Time', value: '< 50ms' },
-        { label: 'Operating Temperature', value: '-40°C to +50°C' },
+        { label: 'Latency', value: '< 50ms' },
+        { label: 'Operating Temperature', value: '-50°C to +50°C' },
         { label: 'Power Requirements', value: 'Battery Operated' },
-        { label: 'Communication Range', value: 'Up to 5000m' },
-        { label: 'Dismounted Target Movement Speed', value: '0-20 Km/h' },
-        { label: 'Vehicle Target Movement Speed', value: '0-50 Km/h' },
-        { label: 'Ballistic Protection', value: 'Resistance to all Law Enforcement Ammunition' },
+        { label: 'Communication Range', value: 'Up to 5000m or BLOS' },
+        { label: 'Ground Speed', value: '0-50 Km/h' },
       ],
-      icon: <Target className="w-16 h-16" />,
-      category: 'law-enforcement',
+      icon: <Scanning Inspection Robot className="w-16 h-16" />,
+      category: 'Industrial Inspection',
       color: 'from-cyber-blue to-cyber-purple',
       images: ['target1.jpg', 'target2.jpg', 'target3.jpg'],
       reviews: [
-        { rating: 5, comment: 'This shit is a game changer.', author: 'SSgt, Shangi, TPS' },
+        { rating: 5, comment: 'The data we collected identified precisely what structural deficiencies existed in our building infrastructure. The investment we made in Augé Innovation Inc. provided us the data we needed to make targeted investments to upgrade our building infrastructure.', author: 'CEO, Swift Rail' },
       ]
     },
     'military-targets': {
