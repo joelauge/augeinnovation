@@ -30,10 +30,10 @@ const FallbackDashboard = () => {
   const products = [
     {
       id: 'law-enforcement-targets',
-      title: 'Law Enforcement - Live Fire AI Targets',
+      title: 'Advanced Training - Live AI Targets',
       price: 1000,
       period: 'per day',
-      description: 'Advanced AI-powered targets designed specifically for law enforcement training scenarios',
+      description: 'Advanced AI-powered targets designed specifically for defense scenarios',
       features: [
         'Real-time threat assessment',
         'Adaptive response patterns',
@@ -50,9 +50,9 @@ const FallbackDashboard = () => {
       title: 'Military - Live Fire AI Targets',
       price: 1000,
       period: 'per day',
-      description: 'Military-grade AI targets for advanced combat training and tactical scenarios',
+      description: 'AI targets for advanced training and tactical scenarios',
       features: [
-        'Heavy weapons simulation',
+        'Advanced robotics simulation',
         'Tactical movement patterns',
         'Multi-threat scenarios',
         'Combat readiness assessment',

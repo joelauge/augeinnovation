@@ -71,55 +71,44 @@ const LandingPage = () => {
   const features = [
     {
       icon: <Target className="w-8 h-8" />,
-      title: "AI-Powered Robots",
-      description: "Advanced robotics with real-time perception and behavior handling."
-    },
-    {
-      icon: <Shield className="w-8 h-8" />,
-      title: "Military Grade",
-      description: "Anti Armor resistant platforms designed for extreme conditions"
+      title: "AI-Powered Targets",
+      description: "Advanced robotics with real-time trainingassessment and adaptive responses"
     },
     {
       icon: <Zap className="w-8 h-8" />,
-      title: "Highly Navigable",
-      description: "Safe, environmentally friendly amphibious systems."
+      title: "Live Training",
+      description: "Safe, hyper-realistic real-time simulations"
     },
     {
       icon: <Bot className="w-8 h-8" />,
       title: "Modular Design",
-      description: "Customizable configurations for any environment from Sub Sea to Space."
+      description: "Customizable configurations for indoor and outdoor operations"
     }
   ];
 
   const heroSlides = [
     {
       title: "NEXT GENERATION",
-      subtitle: "ROBOTICS TRAINING",
-      description: "Revolutionary AI-powered Training.",
+      subtitle: "ROBOTS FOR TRAINING",
+      description: "Revolutionary AI-powered robots for training",
       bgVideo: process.env.PUBLIC_URL + "/images/aerial.webm"
     },
     {
-      title: "MILITARY GRADE",
-      subtitle: "ROBOTIC SYSTEMS",
-      description: "Anti Armor resistant platforms designed for extreme conditions",
-      bgVideo: process.env.PUBLIC_URL + "/images/robotinside.webm"
-    },
-    {
-      title: "INDUSTRIAL ANALYSIS",
-      subtitle: "Industrial Survey Systems",
-      description: "Intelligent 3D Scanning robots capable of building detailed multi model hyperspectral 3D models.",
+      title: "ADAPTIVE AI",
+      subtitle: "TARGET SYSTEMS",
+      description: "Intelligent threat assessment and dynamic response capabilities",
       bgVideo: process.env.PUBLIC_URL + "/images/robot1.webm"
     },
     {
-      title: "PRECISION MEASUREMENT",
+      title: "PRECISION TECH",
       subtitle: "TECHNOLOGY",
-      description: "Advanced scanning systems with real-time feedback and analytics",
+      description: "Advanced systems with real-time feedback and analytics",
       bgVideo: process.env.PUBLIC_URL + "/images/aerial.webm"
     },
     {
-      title: "NEXT GEN SENSOR FUSION",
-      subtitle: "QUALITY DATA",
-      description: "State-of-the-art hyperspectral sensor fusion combining best in class LIDAR, RADAR, SONAR and Colliidal Quantum Dot Imaging.",
+      title: "FUTURE OF SIMULATION",
+      subtitle: "SIMULATION",
+      description: "State-of-the-art simulated environments for modern AI training",
       bgVideo: process.env.PUBLIC_URL + "/images/training.webm"
     }
   ];
