@@ -5,12 +5,6 @@ const EMAILJS_SERVICE_ID = process.env.REACT_APP_EMAILJS_SERVICE_ID;
 const EMAILJS_TEMPLATE_ID = process.env.REACT_APP_EMAILJS_TEMPLATE_ID;
 const EMAILJS_PUBLIC_KEY = process.env.REACT_APP_EMAILJS_PUBLIC_KEY;
 
-// Admin email addresses
-const ADMIN_EMAILS = [
-  'joelauge@gmail.com',
-  'pierre@augeinnovation.com'
-];
-
 /**
  * Send user signup notification to admin emails
  * @param {Object} userData - User data from Clerk
@@ -24,23 +18,33 @@ export const sendUserSignupNotification = async (userData) => {
       return { success: false, error: 'EmailJS not configured' };
     }
 
+    console.log('🔍 DEBUG: EmailJS config:', {
+      serviceId: EMAILJS_SERVICE_ID,
+      templateId: EMAILJS_TEMPLATE_ID,
+      publicKey: EMAILJS_PUBLIC_KEY ? 'SET' : 'NOT SET'
+    });
+
     // Prepare email template parameters
     const templateParams = {
-      to_email: ADMIN_EMAILS.join(','),
-      user_name: `${userData.firstName} ${userData.lastName}`,
+      // Try different parameter names that EmailJS might expect
+      to_email: 'joelauge@gmail.com,pierre@augeinnovation.com',
+      to: 'joelauge@gmail.com,pierre@augeinnovation.com',
+      user_name: `${userData.firstName || ''} ${userData.lastName || ''}`.trim() || 'Unknown User',
       user_email: userData.emailAddresses?.[0]?.emailAddress || 'No email provided',
       user_organization: userData.publicMetadata?.organization || 'Not specified',
       signup_date: new Date().toLocaleString(),
-      user_id: userData.id,
+      user_id: userData.id || 'Unknown',
       approval_link: `${window.location.origin}/admin`,
       user_details: `
-        Name: ${userData.firstName} ${userData.lastName}
+        Name: ${userData.firstName || ''} ${userData.lastName || ''}
         Email: ${userData.emailAddresses?.[0]?.emailAddress || 'No email provided'}
         Organization: ${userData.publicMetadata?.organization || 'Not specified'}
         Signup Date: ${new Date().toLocaleString()}
-        User ID: ${userData.id}
+        User ID: ${userData.id || 'Unknown'}
       `
     };
+
+    console.log('🔍 DEBUG: EmailJS templateParams:', templateParams);
 
     // Send email using EmailJS
     const response = await emailjs.send(
@@ -55,6 +59,7 @@ export const sendUserSignupNotification = async (userData) => {
 
   } catch (error) {
     console.error('Error sending user signup notification:', error);
+    console.error('🔍 DEBUG: Full error object:', error);
     return { success: false, error: error.message };
   }
 };

@@ -5,9 +5,14 @@ import { useUser, useAuth } from '@clerk/clerk-react';
 import { useNavigate } from 'react-router-dom';
 
 const ApprovalPending = () => {
+  // Always call hooks (React rule), but handle null cases
   const { user } = useUser();
   const { signOut } = useAuth();
   const navigate = useNavigate();
+
+  // Check if Clerk is properly configured
+  const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
+  const isClerkConfigured = clerkPubKey && clerkPubKey !== 'pk_test_your_clerk_key_here';
 
   const handleSignOut = async () => {
     try {

@@ -1,0 +1,13 @@
+{
+  "functions": {
+    "api/admin-users.js": {
+      "runtime": "@vercel/node@3.0.0"
+    },
+    "api/admin-approve.js": {
+      "runtime": "@vercel/node@3.0.0"
+    },
+    "api/admin-reject.js": {
+      "runtime": "@vercel/node@3.0.0"
+    }
+  }
+} 
