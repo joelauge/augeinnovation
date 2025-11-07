@@ -53,80 +53,80 @@ const Dashboard = () => {
 
   const products = [
     {
-      id: 'law-enforcement-targets',
-      title: 'Law Enforcement - Live Fire AI Targets',
+      id: 'engineering-consulting',
+      title: 'Engineering Consulting Services',
       price: 1000,
       period: 'per day',
-      description: 'Advanced AI-powered targets designed specifically for law enforcement training scenarios',
+      description: 'Expert engineering consulting services for complex design challenges and innovative solutions',
       features: [
-        'Real-time threat assessment',
-        'Adaptive response patterns',
-        'Safe live fire environment',
-        'Comprehensive training analytics',
-        'Modular target configurations'
+        'Real-time engineering analysis',
+        'Advanced CAD capabilities',
+        'Comprehensive project documentation',
+        'Performance optimization',
+        'Multi-industry expertise'
       ],
       icon: <Target className="w-12 h-12" />,
-      category: 'law-enforcement',
+      category: 'engineering',
       color: 'from-cyber-blue to-cyber-purple'
     },
     {
-      id: 'military-targets',
-      title: 'Military - Live Fire AI Targets',
+      id: 'design-services',
+      title: 'Industrial Design Services',
       price: 1000,
       period: 'per day',
-      description: 'Military-grade AI targets for advanced combat training and tactical scenarios',
+      description: 'Professional industrial design services for product development and innovation',
       features: [
-        'Heavy weapons simulation',
-        'Tactical movement patterns',
-        'Multi-threat scenarios',
-        'Combat readiness assessment',
-        'Advanced AI algorithms'
+        'Advanced 3D modeling',
+        'User-centered design',
+        'Rapid prototyping',
+        'Manufacturing feasibility',
+        'Professional documentation'
       ],
       icon: <Shield className="w-12 h-12" />,
-      category: 'military',
+      category: 'design',
       color: 'from-cyber-red to-cyber-orange'
     },
     {
-      id: 'armored-robots',
-      title: 'Armored Modular Indoor/Outdoor Robots',
+      id: 'manufacturing-systems',
+      title: 'Modular Manufacturing Systems',
       price: 50000,
       period: 'one-time',
-      description: 'Heavy-duty modular robots for both military and law enforcement applications',
+      description: 'Heavy-duty modular manufacturing systems for industrial production applications',
       features: [
-        'All-weather operation',
-        'Modular weapon systems',
-        'Advanced mobility',
-        'Remote control capabilities',
+        'All-environment operation',
+        'Modular tooling systems',
+        'Advanced automation',
+        'Remote monitoring',
         'Customizable configurations'
       ],
       icon: <Bot className="w-12 h-12" />,
-      category: 'robots',
+      category: 'manufacturing',
       color: 'from-cyber-green to-cyber-blue'
     },
     {
-      id: 'heavy-weapons-robots',
-      title: 'Heavy Weapons Resistant Robot',
+      id: 'advanced-manufacturing',
+      title: 'Advanced Manufacturing Solutions',
       price: 200000,
       period: 'one-time',
-      description: 'Ultra-resistant robotic platforms designed for extreme combat environments',
+      description: 'Ultra-advanced manufacturing platforms designed for extreme production environments',
       features: [
-        'Heavy weapons resistance',
-        'Advanced armor systems',
-        'High-capacity weapon mounts',
+        'Advanced automation',
+        'Intelligent quality control',
+        'High-capacity production',
         'Extended operational range',
-        'Multi-environment deployment'
+        'Multi-product capability'
       ],
       icon: <Zap className="w-12 h-12" />,
-      category: 'robots',
+      category: 'manufacturing',
       color: 'from-cyber-purple to-cyber-red'
     }
   ];
 
   const categories = [
     { id: 'all', name: 'All Products', icon: <Cpu className="w-5 h-5" /> },
-    { id: 'law-enforcement', name: 'Law Enforcement', icon: <Shield className="w-5 h-5" /> },
-    { id: 'military', name: 'Military', icon: <Target className="w-5 h-5" /> },
-    { id: 'robots', name: 'Robotic Systems', icon: <Bot className="w-5 h-5" /> }
+    { id: 'engineering', name: 'Engineering', icon: <Target className="w-5 h-5" /> },
+    { id: 'design', name: 'Design', icon: <Shield className="w-5 h-5" /> },
+    { id: 'manufacturing', name: 'Manufacturing', icon: <Bot className="w-5 h-5" /> }
   ];
 
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -212,7 +212,7 @@ const Dashboard = () => {
             WELCOME BACK, {currentUser?.firstName?.toUpperCase()}
           </h2>
           <p className="text-titanium text-lg">
-            Explore our advanced firearms training solutions and robotic systems
+            Explore our advanced engineering, design, and manufacturing solutions
           </p>
         </motion.div>
 

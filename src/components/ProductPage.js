@@ -31,168 +31,168 @@ const ProductPage = () => {
   const [showInvoiceModal, setShowInvoiceModal] = useState(false);
 
   const products = {
-    'law-enforcement-targets': {
-      id: 'law-enforcement-targets',
-      title: 'Law Enforcement - Live Fire AI Targets',
+    'engineering-consulting': {
+      id: 'engineering-consulting',
+      title: 'Engineering Consulting Services',
       price: 1000,
       period: 'per day',
       bgVideo: process.env.PUBLIC_URL + "/images/robotinside.webm",
-      description: 'Advanced AI-powered targets designed specifically for law enforcement training scenarios. These cutting-edge systems provide realistic threat simulation while maintaining the highest safety standards.',
-      longDescription: `Our Law Enforcement AI Targets represent the pinnacle of training technology, designed specifically for police departments and law enforcement agencies. These systems combine advanced robotics with sophisticated AI algorithms to create the most realistic training scenarios possible.
+      description: 'Expert engineering consulting services for complex design challenges. Our team provides cutting-edge solutions with advanced analysis and innovative problem-solving approaches.',
+      longDescription: `Our Engineering Consulting Services represent the pinnacle of technical expertise, designed specifically for companies facing complex engineering challenges. These services combine advanced engineering principles with sophisticated analysis tools to deliver innovative solutions.
 
-The targets feature real-time threat assessment capabilities, allowing them to respond dynamically to trainee actions. They can simulate various threat levels, from passive suspects to active shooters, providing officers with comprehensive training experiences that prepare them for real-world situations.
+Our engineering team features real-time problem-solving capabilities, allowing them to respond dynamically to project requirements. They can handle various engineering challenges, from product development to system optimization, providing comprehensive solutions that meet the highest industry standards.
 
-Each system includes comprehensive analytics and reporting features, allowing training supervisors to track performance metrics and identify areas for improvement. The modular design allows for easy customization to meet specific training requirements.`,
+Each engagement includes comprehensive project management and reporting features, allowing clients to track progress metrics and identify areas for improvement. Our modular approach allows for easy customization to meet specific project requirements.`,
       features: [
-        'Real-time threat assessment and response',
-        'Adaptive AI algorithms that learn from training sessions',
-        'Safe live fire environment with bullet-resistant materials',
-        'Comprehensive training analytics and performance tracking',
-        'Modular target configurations for various scenarios',
-        'Weather-resistant outdoor operation capability',
-        'Remote control and monitoring systems',
-        'Integration with existing training infrastructure'
+        'Real-time engineering analysis and solutions',
+        'Advanced CAD and simulation capabilities',
+        'Comprehensive project documentation and reporting',
+        'Performance optimization and efficiency analysis',
+        'Modular design approaches for various applications',
+        'Multi-industry expertise and knowledge',
+        'Remote collaboration and monitoring systems',
+        'Integration with existing engineering workflows'
       ],
       specifications: [
-        { label: 'Target Response Time', value: '< 50ms' },
-        { label: 'Operating Temperature', value: '-20°C to +50°C' },
-        { label: 'Power Requirements', value: '110V/220V AC or Battery' },
-        { label: 'Communication Range', value: 'Up to 500m' },
-        { label: 'Target Movement Speed', value: '0-15 m/s' },
-        { label: 'Weight', value: '45 kg' },
-        { label: 'Dimensions', value: '120cm x 80cm x 60cm' },
-        { label: 'Warranty', value: '2 years comprehensive' }
+        { label: 'Response Time', value: '< 24 hours' },
+        { label: 'Service Availability', value: '24/7 support' },
+        { label: 'Team Size', value: '2-5 engineers per project' },
+        { label: 'Communication Channels', value: 'Video, Email, Phone' },
+        { label: 'Project Duration', value: 'Flexible timelines' },
+        { label: 'Documentation', value: 'Comprehensive deliverables' },
+        { label: 'Support Level', value: 'Full project lifecycle' },
+        { label: 'Warranty', value: '2 years post-project support' }
       ],
       icon: <Target className="w-16 h-16" />,
-      category: 'law-enforcement',
+      category: 'engineering',
       color: 'from-cyber-blue to-cyber-purple',
-      images: ['target1.jpg', 'target2.jpg', 'target3.jpg'],
+      images: ['engineering1.jpg', 'engineering2.jpg', 'engineering3.jpg'],
       reviews: [
-        { rating: 5, comment: 'Revolutionary training system that significantly improved our department\'s readiness.', author: 'Const. Johnson, Toronto Police' },
-        { rating: 5, comment: 'The AI capabilities are incredible. Our officers are more confident and prepared.', author: 'Sgt Dufonce, Sureté du Quebec' }
+        { rating: 5, comment: 'Exceptional engineering solutions that significantly improved our product development process.', author: 'Sarah Chen, TechCorp Industries' },
+        { rating: 5, comment: 'The engineering expertise is incredible. Our team is more efficient and innovative.', author: 'Michael Rodriguez, Advanced Manufacturing Co.' }
       ]
     },
-    'military-targets': {
-      id: 'military-targets',
-      title: 'Military - Live Fire AI Targets',
+    'design-services': {
+      id: 'design-services',
+      title: 'Industrial Design Services',
       price: 1000,
       period: 'per day',
       bgVideo: process.env.PUBLIC_URL + "/images/aerial.webm",
-      description: 'Military-grade AI targets for advanced combat training and tactical scenarios. Designed for the most demanding training environments.',
-      longDescription: `Our Military AI Targets are engineered for the most challenging combat training scenarios. These systems are designed to withstand extreme conditions while providing realistic threat simulation for military personnel.
+      description: 'Professional industrial design services for product development and innovation. Designed for the most demanding design challenges.',
+      longDescription: `Our Industrial Design Services are engineered for the most challenging product development scenarios. These services are designed to deliver innovative solutions while maintaining the highest design standards.
 
-The targets feature advanced tactical movement patterns that simulate real combat situations, including cover and concealment tactics, flanking maneuvers, and coordinated attacks. The AI system can coordinate multiple targets to create complex, multi-threat scenarios that test tactical decision-making and combat effectiveness.
+Our design team features advanced creative processes that simulate real-world product requirements, including user experience optimization, material selection, and manufacturing feasibility. The design system can coordinate multiple design elements to create complex, multi-faceted products that test design boundaries and market effectiveness.
 
-Built to military specifications, these targets can operate in extreme weather conditions, from desert heat to arctic cold. They feature heavy-duty construction and can withstand significant environmental stress while maintaining operational reliability.`,
+Built to professional specifications, our design services can operate across various industries, from consumer products to industrial equipment. They feature comprehensive design documentation and can deliver significant value while maintaining design integrity and manufacturability.`,
       features: [
-        'Heavy weapons simulation and resistance',
-        'Advanced tactical movement patterns',
-        'Multi-threat scenario coordination',
-        'Combat readiness assessment algorithms',
-        'Extreme weather operation capability',
-        'Military-grade durability and reliability',
-        'Advanced AI threat simulation',
-        'Comprehensive after-action reporting'
+        'Advanced 3D modeling and visualization',
+        'User-centered design methodologies',
+        'Multi-disciplinary design coordination',
+        'Manufacturing feasibility analysis',
+        'Rapid prototyping capabilities',
+        'Professional design documentation',
+        'Advanced material and finish selection',
+        'Comprehensive design review processes'
       ],
       specifications: [
-        { label: 'Target Response Time', value: '< 30ms' },
-        { label: 'Operating Temperature', value: '-40°C to +60°C' },
-        { label: 'Power Requirements', value: '24V DC or Solar' },
-        { label: 'Communication Range', value: 'Up to 1km' },
-        { label: 'Target Movement Speed', value: '0-20 m/s' },
-        { label: 'Weight', value: '75 kg' },
-        { label: 'Dimensions', value: '150cm x 100cm x 80cm' },
-        { label: 'Warranty', value: '3 years military grade' }
+        { label: 'Design Iteration Time', value: '< 48 hours' },
+        { label: 'Service Availability', value: 'Business hours + emergency' },
+        { label: 'Design Team Size', value: '2-4 designers per project' },
+        { label: 'Communication Range', value: 'Global collaboration' },
+        { label: 'Prototype Delivery', value: '2-4 weeks' },
+        { label: 'Design Revisions', value: 'Unlimited during project' },
+        { label: 'File Formats', value: 'All major CAD formats' },
+        { label: 'Warranty', value: '3 years design support' }
       ],
       icon: <Shield className="w-16 h-16" />,
-      category: 'military',
+      category: 'design',
       color: 'from-cyber-red to-cyber-orange',
-      images: ['military1.jpg', 'military2.jpg', 'military3.jpg'],
+      images: ['design1.jpg', 'design2.jpg', 'design3.jpg'],
       reviews: [
-        { rating: 5, comment: 'Exceptional training system that has improved our unit\'s combat effectiveness.', author: 'Col. Martinez, US Army' },
-        { rating: 5, comment: 'The most advanced training technology we\'ve ever used.', author: 'Maj. Thompson, USMC' }
+        { rating: 5, comment: 'Outstanding design services that have improved our product line significantly.', author: 'Jennifer Martinez, Product Innovations Inc.' },
+        { rating: 5, comment: 'The most advanced design capabilities we\'ve ever experienced.', author: 'David Thompson, Creative Solutions Ltd.' }
       ]
     },
-    'armored-robots': {
-      id: 'armored-robots',
-      title: 'Armored Modular Indoor/Outdoor Robots',
+    'manufacturing-systems': {
+      id: 'manufacturing-systems',
+      title: 'Modular Manufacturing Systems',
       price: 50000,
       period: 'one-time',
       bgVideo: process.env.PUBLIC_URL + "/images/robot1.webm",
-      description: 'Heavy-duty modular robots for both military and law enforcement applications. Versatile platforms designed for multiple operational environments.',
-      longDescription: `Our Armored Modular Robots represent a new generation of versatile robotic platforms designed for both military and law enforcement applications. These systems feature a modular design that allows for rapid reconfiguration to meet specific mission requirements.
+      description: 'Heavy-duty modular manufacturing systems for industrial applications. Versatile platforms designed for multiple production environments.',
+      longDescription: `Our Modular Manufacturing Systems represent a new generation of versatile production platforms designed for industrial manufacturing applications. These systems feature a modular design that allows for rapid reconfiguration to meet specific production requirements.
 
-The robots are equipped with advanced mobility systems that enable operation in diverse environments, from urban settings to rough terrain. They feature modular weapon systems that can be quickly swapped to match mission requirements, from less-lethal options to heavy weapons platforms.
+The systems are equipped with advanced automation capabilities that enable operation in diverse manufacturing environments, from precision assembly to heavy fabrication. They feature modular tooling systems that can be quickly swapped to match production requirements, from precision components to large-scale assemblies.
 
-Built with military-grade armor and electronics, these robots can operate in extreme conditions while providing reliable performance. The modular design allows for easy maintenance and upgrades, ensuring long-term operational capability.`,
+Built with industrial-grade components and electronics, these systems can operate in demanding conditions while providing reliable performance. The modular design allows for easy maintenance and upgrades, ensuring long-term production capability.`,
       features: [
-        'All-weather operation capability',
-        'Modular weapon system integration',
-        'Advanced mobility and navigation',
-        'Remote control and autonomous operation',
-        'Customizable configurations',
-        'Military-grade armor protection',
-        'Extended operational range',
-        'Real-time video and sensor feeds'
+        'All-environment operation capability',
+        'Modular tooling system integration',
+        'Advanced automation and control',
+        'Remote monitoring and autonomous operation',
+        'Customizable production configurations',
+        'Industrial-grade reliability and durability',
+        'Extended production capacity',
+        'Real-time monitoring and quality control'
       ],
       specifications: [
-        { label: 'Maximum Speed', value: '25 km/h' },
-        { label: 'Operating Range', value: 'Up to 10km' },
+        { label: 'Production Speed', value: 'Up to 1000 units/hour' },
+        { label: 'Operating Range', value: '24/7 continuous operation' },
         { label: 'Payload Capacity', value: '150 kg' },
-        { label: 'Battery Life', value: '8-12 hours' },
+        { label: 'Uptime', value: '95%+ availability' },
         { label: 'Weight', value: '450 kg' },
         { label: 'Dimensions', value: '200cm x 120cm x 100cm' },
-        { label: 'Armor Rating', value: 'Level III+ protection' },
+        { label: 'Precision Rating', value: '±0.01mm accuracy' },
         { label: 'Warranty', value: '5 years comprehensive' }
       ],
       icon: <Bot className="w-16 h-16" />,
-      category: 'robots',
+      category: 'manufacturing',
       color: 'from-cyber-green to-cyber-blue',
-      images: ['robot1.jpg', 'robot2.jpg', 'robot3.jpg'],
+      images: ['manufacturing1.jpg', 'manufacturing2.jpg', 'manufacturing3.jpg'],
       reviews: [
-        { rating: 5, comment: 'Incredible versatility and reliability. Perfect for our diverse mission requirements.', author: 'Capt. Davis, Special Forces' },
-        { rating: 5, comment: 'The modular design makes it incredibly adaptable to different scenarios.', author: 'Lt. Rodriguez, SWAT Team' }
+        { rating: 5, comment: 'Incredible versatility and reliability. Perfect for our diverse production requirements.', author: 'Robert Davis, Industrial Solutions Group' },
+        { rating: 5, comment: 'The modular design makes it incredibly adaptable to different production scenarios.', author: 'Lisa Rodriguez, Precision Manufacturing Co.' }
       ]
     },
-    'heavy-weapons-robots': {
-      id: 'heavy-weapons-robots',
-      title: 'Heavy Weapons Resistant Robot',
+    'advanced-manufacturing': {
+      id: 'advanced-manufacturing',
+      title: 'Advanced Manufacturing Solutions',
       price: 200000,
       period: 'one-time',
       bgVideo: process.env.PUBLIC_URL + "/images/robotinside.webm",
-      description: 'Ultra-resistant robotic platforms designed for extreme combat environments. The most advanced robotic systems available.',
-      longDescription: `Our Heavy Weapons Resistant Robots represent the pinnacle of robotic combat technology. These ultra-resistant platforms are designed for the most extreme combat environments, featuring advanced armor systems that can withstand heavy weapons fire.
+      description: 'Ultra-advanced manufacturing platforms designed for extreme production environments. The most sophisticated manufacturing systems available.',
+      longDescription: `Our Advanced Manufacturing Solutions represent the pinnacle of manufacturing technology. These ultra-advanced platforms are designed for the most demanding production environments, featuring advanced automation systems that can handle complex manufacturing processes.
 
-These robots are equipped with sophisticated AI systems that enable autonomous operation in complex combat scenarios. They feature advanced sensor suites that provide comprehensive situational awareness, allowing for effective operation in challenging environments.
+These systems are equipped with sophisticated AI and control systems that enable autonomous operation in complex production scenarios. They feature advanced sensor suites that provide comprehensive quality monitoring, allowing for effective operation in challenging manufacturing environments.
 
-The heavy weapons resistance is achieved through a combination of advanced materials science and innovative design. The robots feature multiple layers of protection, including reactive armor and composite materials, while maintaining operational mobility and effectiveness.`,
+The advanced capabilities are achieved through a combination of cutting-edge technology and innovative engineering. The systems feature multiple layers of automation, including robotic integration and intelligent quality control, while maintaining operational efficiency and productivity.`,
       features: [
-        'Heavy weapons resistance and protection',
-        'Advanced armor systems and materials',
-        'High-capacity weapon mounts and integration',
+        'Advanced automation and robotics integration',
+        'Intelligent quality control systems',
+        'High-capacity production capabilities',
         'Extended operational range and endurance',
-        'Multi-environment deployment capability',
-        'Advanced AI autonomous operation',
-        'Comprehensive sensor and communication systems',
-        'Modular mission-specific configurations'
+        'Multi-product manufacturing capability',
+        'Advanced AI production optimization',
+        'Comprehensive monitoring and analytics systems',
+        'Modular production-specific configurations'
       ],
       specifications: [
-        { label: 'Maximum Speed', value: '35 km/h' },
-        { label: 'Operating Range', value: 'Up to 25km' },
+        { label: 'Production Speed', value: 'Up to 5000 units/hour' },
+        { label: 'Operating Range', value: '24/7 continuous operation' },
         { label: 'Payload Capacity', value: '300 kg' },
-        { label: 'Battery Life', value: '16-24 hours' },
+        { label: 'Uptime', value: '98%+ availability' },
         { label: 'Weight', value: '1200 kg' },
         { label: 'Dimensions', value: '300cm x 180cm x 150cm' },
-        { label: 'Armor Rating', value: 'Level IV+ protection' },
+        { label: 'Precision Rating', value: '±0.001mm accuracy' },
         { label: 'Warranty', value: '10 years comprehensive' }
       ],
       icon: <Zap className="w-16 h-16" />,
-      category: 'robots',
+      category: 'manufacturing',
       color: 'from-cyber-purple to-cyber-red',
-      images: ['heavy1.jpg', 'heavy2.jpg', 'heavy3.jpg'],
+      images: ['advanced1.jpg', 'advanced2.jpg', 'advanced3.jpg'],
       reviews: [
-        { rating: 5, comment: 'The most advanced robotic system we\'ve ever deployed. Exceptional performance.', author: 'Gen. Anderson, Joint Chiefs' },
-        { rating: 5, comment: 'Revolutionary technology that has changed how we approach combat operations.', author: 'Adm. Chen, Naval Operations' }
+        { rating: 5, comment: 'The most advanced manufacturing system we\'ve ever deployed. Exceptional performance.', author: 'James Anderson, Global Manufacturing Corp' },
+        { rating: 5, comment: 'Revolutionary technology that has transformed our production capabilities.', author: 'Patricia Chen, Advanced Production Systems' }
       ]
     }
   };

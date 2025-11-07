@@ -79,55 +79,55 @@ const LandingPage = () => {
   const features = [
     {
       icon: <Target className="w-8 h-8" />,
-      title: "AI-Powered Targets",
-      description: "Advanced robotics with real-time threat assessment and adaptive responses"
+      title: "Engineering Excellence",
+      description: "Advanced engineering solutions with real-time analysis and innovative problem-solving"
     },
     {
       icon: <Shield className="w-8 h-8" />,
-      title: "Military Grade",
-      description: "Heavy weapons resistant platforms designed for extreme conditions"
+      title: "Professional Design",
+      description: "Industrial-grade design services for product development and innovation"
     },
     {
       icon: <Zap className="w-8 h-8" />,
-      title: "Live Fire Training",
-      description: "Safe, controlled environments for realistic combat simulation"
+      title: "Manufacturing Solutions",
+      description: "Cutting-edge manufacturing systems for efficient production and quality control"
     },
     {
       icon: <Bot className="w-8 h-8" />,
-      title: "Modular Design",
-      description: "Customizable configurations for indoor and outdoor operations"
+      title: "Modular Systems",
+      description: "Customizable configurations for diverse industrial and commercial applications"
     }
   ];
 
   const heroSlides = [
     {
       title: "NEXT-GENERATION",
-      subtitle: "FIREARMS TRAINING",
-      description: "Revolutionary AI-powered robots for law enforcement and military training",
+      subtitle: "ENGINEERING",
+      description: "Revolutionary engineering solutions for complex design challenges and innovation",
       bgVideo: process.env.PUBLIC_URL + "/images/aerial.webm"
     },
     {
-      title: "MILITARY GRADE",
-      subtitle: "ROBOTIC SYSTEMS",
-      description: "Heavy weapons resistant platforms for extreme training scenarios",
+      title: "INDUSTRIAL GRADE",
+      subtitle: "MANUFACTURING",
+      description: "Advanced manufacturing systems for extreme production environments",
       bgVideo: process.env.PUBLIC_URL + "/images/robotinside.webm"
     },
     {
-      title: "ADAPTIVE AI",
-      subtitle: "TARGET SYSTEMS",
-      description: "Intelligent threat assessment and dynamic response capabilities",
+      title: "INNOVATIVE DESIGN",
+      subtitle: "SOLUTIONS",
+      description: "Intelligent design processes and dynamic development capabilities",
       bgVideo: process.env.PUBLIC_URL + "/images/robot1.webm"
     },
     {
-      title: "PRECISION TRAINING",
+      title: "PRECISION ENGINEERING",
       subtitle: "TECHNOLOGY",
-      description: "Advanced targeting systems with real-time feedback and analytics",
+      description: "Advanced engineering systems with real-time analysis and optimization",
       bgVideo: process.env.PUBLIC_URL + "/images/aerial.webm"
     },
     {
-      title: "FUTURE OF COMBAT",
-      subtitle: "SIMULATION",
-      description: "State-of-the-art training environments for modern warfare",
+      title: "FUTURE OF MANUFACTURING",
+      subtitle: "INNOVATION",
+      description: "State-of-the-art production environments for modern industry",
       bgVideo: process.env.PUBLIC_URL + "/images/training.webm"
     }
   ];
@@ -285,7 +285,7 @@ const LandingPage = () => {
               className="text-4xl md:text-5xl font-cyber font-bold neon-text mb-4 cursor-default"
             />
             <p className="text-xl text-titanium max-w-3xl mx-auto">
-              Cutting-edge technology designed for the most demanding training environments
+              Cutting-edge technology designed for the most demanding engineering, design, and manufacturing challenges
             </p>
           </motion.div>
           

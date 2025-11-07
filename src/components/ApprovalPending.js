@@ -167,7 +167,7 @@ const ApprovalPending = () => {
                 <div className="w-6 h-6 bg-cyber-blue rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
                   <span className="text-white text-xs font-bold">3</span>
                 </div>
-                <p className="text-titanium">Access to our advanced training systems will be granted</p>
+                <p className="text-titanium">Access to our advanced engineering, design, and manufacturing solutions will be granted</p>
               </div>
             </div>
           </motion.div>

@@ -105,7 +105,7 @@ const ContactPage = () => {
                 CONTACT AUGÉ INNOVATIONS
               </h1>
               <p className="text-xl text-titanium leading-relaxed">
-                Ready to revolutionize your training capabilities? Get in touch with our team of experts.
+                Ready to revolutionize your engineering, design, and manufacturing capabilities? Get in touch with our team of experts.
               </p>
             </div>
 
@@ -116,19 +116,19 @@ const ContactPage = () => {
               <div className="space-y-4 text-titanium">
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-cyber-blue rounded-full mt-2 flex-shrink-0"></div>
-                  <p>Advanced AI-powered training targets for law enforcement and military applications</p>
+                  <p>Advanced engineering consulting services for complex design challenges</p>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-cyber-blue rounded-full mt-2 flex-shrink-0"></div>
-                  <p>Heavy weapons resistant robotic platforms for extreme combat environments</p>
+                  <p>Professional industrial design services for product development and innovation</p>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-cyber-blue rounded-full mt-2 flex-shrink-0"></div>
-                  <p>Modular armored robots for versatile mission requirements</p>
+                  <p>Modular manufacturing systems for versatile production requirements</p>
                 </div>
                 <div className="flex items-start space-x-3">
                   <div className="w-2 h-2 bg-cyber-blue rounded-full mt-2 flex-shrink-0"></div>
-                  <p>Comprehensive training analytics and performance tracking systems</p>
+                  <p>Comprehensive project management and performance tracking systems</p>
                 </div>
               </div>
             </div>
@@ -138,11 +138,11 @@ const ContactPage = () => {
                 WHY CHOOSE US
               </h2>
               <div className="space-y-3 text-titanium">
-                <p>• Cutting-edge AI technology with real-time threat assessment</p>
-                <p>• Military-grade durability and reliability</p>
-                <p>• Customizable solutions for specific training needs</p>
+                <p>• Cutting-edge engineering technology with real-time analysis</p>
+                <p>• Industrial-grade quality and reliability</p>
+                <p>• Customizable solutions for specific project needs</p>
                 <p>• Comprehensive support and maintenance services</p>
-                <p>• Proven track record with law enforcement and military clients</p>
+                <p>• Proven track record with engineering and manufacturing clients</p>
               </div>
             </div>
           </motion.div>
@@ -218,7 +218,7 @@ const ContactPage = () => {
                   onChange={handleChange}
                   rows={6}
                   className="cyber-input w-full text-white placeholder-gray-400 resize-none"
-                  placeholder="Tell us about your training needs and requirements..."
+                  placeholder="Tell us about your engineering, design, or manufacturing needs and requirements..."
                   required
                 />
               </div>

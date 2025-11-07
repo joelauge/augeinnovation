@@ -52,10 +52,10 @@ const useApprovalStatus = () => {
         }
         // Auto-approve certain domains for demo purposes
         else if (
-          userEmail.includes('@lawenforcement.gov') ||
-          userEmail.includes('@military.mil') ||
-          userEmail.includes('@swat.gov') ||
-          userEmail.includes('@marines.mil') ||
+          userEmail.includes('@engineering.com') ||
+          userEmail.includes('@manufacturing.com') ||
+          userEmail.includes('@design.com') ||
+          userEmail.includes('@industrial.com') ||
           userEmail.includes('@augeinnovation.com')
         ) {
           status = 'approved';

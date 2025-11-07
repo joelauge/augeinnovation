@@ -25,33 +25,33 @@ const AdminDashboard = () => {
     const mockPendingUsers = [
       {
         id: 'user_1',
-        email: 'john.doe@police.gov',
+        email: 'john.doe@engineering.com',
         firstName: 'John',
         lastName: 'Doe',
         role: 'pending',
         approved: false,
         createdAt: '2025-01-15T10:30:00Z',
-        organization: 'LAPD'
+        organization: 'TechCorp Engineering'
       },
       {
         id: 'user_2',
-        email: 'sarah.smith@military.gov',
+        email: 'sarah.smith@manufacturing.com',
         firstName: 'Sarah',
         lastName: 'Smith',
         role: 'pending',
         approved: false,
         createdAt: '2025-01-14T14:20:00Z',
-        organization: 'US Army'
+        organization: 'Advanced Manufacturing Co.'
       },
       {
         id: 'user_3',
-        email: 'mike.johnson@swat.gov',
+        email: 'mike.johnson@design.com',
         firstName: 'Mike',
         lastName: 'Johnson',
         role: 'pending',
         approved: false,
         createdAt: '2025-01-13T09:15:00Z',
-        organization: 'SWAT Team'
+        organization: 'Creative Design Solutions'
       }
     ];
     setPendingUsers(mockPendingUsers);

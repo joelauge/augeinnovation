@@ -34,27 +34,27 @@ const AdminPanel = () => {
         id: '1',
         firstName: 'John',
         lastName: 'Smith',
-        email: 'john.smith@lawenforcement.gov',
+        email: 'john.smith@engineering.com',
         createdAt: '2024-01-15T10:30:00Z',
-        organization: 'City Police Department',
+        organization: 'TechCorp Engineering',
         status: 'pending'
       },
       {
         id: '2',
         firstName: 'Sarah',
         lastName: 'Johnson',
-        email: 'sarah.johnson@military.mil',
+        email: 'sarah.johnson@manufacturing.com',
         createdAt: '2024-01-14T14:20:00Z',
-        organization: 'US Army',
+        organization: 'Advanced Manufacturing Co.',
         status: 'pending'
       },
       {
         id: '3',
         firstName: 'Mike',
         lastName: 'Davis',
-        email: 'mike.davis@security.com',
+        email: 'mike.davis@design.com',
         createdAt: '2024-01-13T09:15:00Z',
-        organization: 'Private Security Firm',
+        organization: 'Creative Design Solutions',
         status: 'pending'
       }
     ];
@@ -64,20 +64,20 @@ const AdminPanel = () => {
         id: '4',
         firstName: 'Alex',
         lastName: 'Wilson',
-        email: 'alex.wilson@swat.gov',
+        email: 'alex.wilson@industrial.com',
         createdAt: '2024-01-10T11:00:00Z',
         approvedAt: '2024-01-12T15:30:00Z',
-        organization: 'SWAT Team',
+        organization: 'Industrial Solutions Group',
         status: 'approved'
       },
       {
         id: '5',
         firstName: 'Lisa',
         lastName: 'Brown',
-        email: 'lisa.brown@marines.mil',
+        email: 'lisa.brown@manufacturing.com',
         createdAt: '2024-01-08T16:45:00Z',
         approvedAt: '2024-01-11T10:20:00Z',
-        organization: 'US Marines',
+        organization: 'Precision Manufacturing Co.',
         status: 'approved'
       }
     ];
