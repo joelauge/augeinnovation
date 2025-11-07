@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useSafeUser, useSafeAuth } from '../hooks/useSafeClerk';
+// LandingPage doesn't need Clerk hooks - it's a public page
 import { 
   Shield, 
   Target, 
@@ -51,29 +51,15 @@ const AnimatedText = ({ text, className, animationProps = {} }) => {
 
 const LandingPage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const { isSignedIn } = useSafeUser();
-  const { signOut } = useSafeAuth();
   const navigate = useNavigate();
 
-  // Check if Clerk is properly configured
-  const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
-  const isClerkConfigured = clerkPubKey && clerkPubKey !== 'pk_test_your_clerk_key_here';
-
-  // Use Clerk authentication if configured, otherwise fallback to demo mode
-  const isAuthenticated = isClerkConfigured ? isSignedIn : false;
+  // LandingPage is a public page - no authentication needed
+  // Users will authenticate when they click Sign In/Sign Up buttons
+  const isAuthenticated = false;
 
   const handleSignOut = async () => {
-    try {
-      if (isClerkConfigured && signOut) {
-        await signOut();
-      }
-      // Always navigate to home page after sign out
-      navigate('/');
-    } catch (error) {
-      console.error('Error signing out:', error);
-      // Still navigate to home page even if sign out fails
-      navigate('/');
-    }
+    // LandingPage doesn't handle sign out - users should be on dashboard for that
+    navigate('/');
   };
 
   const features = [
