@@ -10,20 +10,19 @@ const root = ReactDOM.createRoot(document.getElementById('root'));
 
 // Get Clerk publishable key from environment variables
 const clerkPubKey = process.env.REACT_APP_CLERK_PUBLISHABLE_KEY;
+const isClerkConfigured = clerkPubKey && clerkPubKey !== 'pk_test_your_clerk_key_here' && clerkPubKey.startsWith('pk_');
 
-console.log('Starting app...', clerkPubKey ? 'with Clerk authentication' : 'without Clerk (using custom forms)');
+console.log('Starting app...', isClerkConfigured ? 'with Clerk authentication' : 'without Clerk (using safe wrappers)');
 
-// Always use ClerkProvider to prevent hook errors, even with placeholder key
-// Components will handle the case where Clerk is not fully configured
-const effectiveClerkKey = (clerkPubKey && clerkPubKey !== 'pk_test_your_clerk_key_here') 
-  ? clerkPubKey 
-  : 'pk_test_placeholder_key_for_error_prevention';
+// Always use ClerkProvider to prevent hook errors
+// Use a minimal valid key format if not configured (Clerk will handle invalid keys gracefully)
+const effectiveKey = isClerkConfigured ? clerkPubKey : 'pk_test_minimal_key_for_hook_support';
 
 root.render(
   <React.StrictMode>
     <ErrorBoundary>
       <ClerkProvider 
-        publishableKey={effectiveClerkKey}
+        publishableKey={effectiveKey}
         appearance={{
           baseTheme: undefined,
           variables: {

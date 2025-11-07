@@ -1,9 +1,9 @@
 import { useState, useEffect } from 'react';
-import { useUser } from '@clerk/clerk-react';
+import { useSafeUser } from './useSafeClerk';
 import { sendUserSignupNotification } from '../services/emailService';
 
 const useApprovalStatus = () => {
-  const { user } = useUser();
+  const { user } = useSafeUser();
   const [isApproved, setIsApproved] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
   const [approvalStatus, setApprovalStatus] = useState('pending');

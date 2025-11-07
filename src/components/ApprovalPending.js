@@ -1,13 +1,13 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Clock, Shield, User, LogOut } from 'lucide-react';
-import { useUser, useAuth } from '@clerk/clerk-react';
+import { useSafeUser, useSafeAuth } from '../hooks/useSafeClerk';
 import { useNavigate } from 'react-router-dom';
 
 const ApprovalPending = () => {
   const navigate = useNavigate();
-  const { user } = useUser();
-  const { signOut } = useAuth();
+  const { user } = useSafeUser();
+  const { signOut } = useSafeAuth();
 
   const handleSignOut = async () => {
     try {

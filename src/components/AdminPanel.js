@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useUser, useAuth } from '@clerk/clerk-react';
+import { useSafeUser, useSafeAuth } from '../hooks/useSafeClerk';
 import { sendUserApprovalNotification, sendUserRejectionNotification } from '../services/emailService';
 import { 
   User, 
@@ -15,8 +15,8 @@ import {
 } from 'lucide-react';
 
 const AdminPanel = () => {
-  const { user } = useUser();
-  const { signOut } = useAuth();
+  const { user } = useSafeUser();
+  const { signOut } = useSafeAuth();
   const navigate = useNavigate();
   const [pendingUsers, setPendingUsers] = useState([]);
   const [approvedUsers, setApprovedUsers] = useState([]);

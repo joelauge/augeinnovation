@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useUser, useAuth } from '@clerk/clerk-react';
+import { useSafeUser, useSafeAuth } from '../hooks/useSafeClerk';
 import { 
   Shield, 
   Target, 
@@ -51,8 +51,8 @@ const AnimatedText = ({ text, className, animationProps = {} }) => {
 
 const LandingPage = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-  const { isSignedIn } = useUser();
-  const { signOut } = useAuth();
+  const { isSignedIn } = useSafeUser();
+  const { signOut } = useSafeAuth();
   const navigate = useNavigate();
 
   // Check if Clerk is properly configured

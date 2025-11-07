@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import { useUser, useAuth } from '@clerk/clerk-react';
+import { useSafeUser, useSafeAuth } from '../hooks/useSafeClerk';
 import useApprovalStatus from '../hooks/useApprovalStatus';
 import ApprovalPending from './ApprovalPending';
 import { 
@@ -16,8 +16,8 @@ import {
 } from 'lucide-react';
 
 const Dashboard = () => {
-  const { user } = useUser();
-  const { signOut } = useAuth();
+  const { user } = useSafeUser();
+  const { signOut } = useSafeAuth();
   const navigate = useNavigate();
   const { isApproved, isLoading } = useApprovalStatus();
 
